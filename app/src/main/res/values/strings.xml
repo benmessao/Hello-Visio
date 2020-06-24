@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Izeeconf</string>
+    <string name="connect_btn">Connect</string>
+    <string name="hangup_button">Hangup button</string>
+
+    <string name="logo">Logo</string>
+    <string name="mute_microphone">Mute microphone</string>
+
+    <string name="servers_prompt">Choose a server</string>
+    <string-array name="servers_arrays">
+        <item>https://cloud.apizee.com</item>
+    </string-array>
+    <string name="version">v1.0.3</string>
+    <string name="lobbyHelp">The other party can open this same application with the same room. Only 2 participants are allowed.</string>
+    <string name="conference_room">Conference room</string>
+    <string name="lobbyRoom">DefaultRoom</string>
+</resources>
