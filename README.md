@@ -20,7 +20,7 @@ You can open one of our conferencing tutorial page and join the same room as on 
 API24/Android 7.0 -> API30/Android 10.0+
 
 # SDK - API Reference :
-API reference documentation is published in a beta version here : AJOUTER LIEN
+API reference documentation is published in a beta version in directory "apiRTC/apiRTC-reference"
 
 # Limitations :
 This demo is in beta stage. We are working on evolutions : Contact us before using it.
