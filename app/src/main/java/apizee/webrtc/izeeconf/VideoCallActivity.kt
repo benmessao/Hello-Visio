@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -24,12 +23,11 @@ import com.apizee.apiRTC.UserAgent
 import kotlinx.android.synthetic.main.activity_video_call.*
 import org.webrtc.RendererCommon
 import org.webrtc.SurfaceViewRenderer
+import java.util.concurrent.ConcurrentHashMap
 
 
 class VideoCallActivity : AppCompatActivity() {
-    private var statusTextView: TextView? = null
     private var localVideoView: SurfaceViewRenderer? = null
-    private var remoteVideoView: SurfaceViewRenderer? = null
     private var audioManager: AudioManager? = null
     private var savedMicrophoneState: Boolean? = null
     private var savedSpeakerphoneState: Boolean? = null
@@ -39,18 +37,15 @@ class VideoCallActivity : AppCompatActivity() {
     private var localStream: Stream? = null
     private var connectedConversation: Conversation? = null
 
+    private var usedSurfaceViewRenderer: ConcurrentHashMap<Stream?, SurfaceViewRenderer?> = ConcurrentHashMap()
+    private var freeSurfaceViewRenderer: MutableList<SurfaceViewRenderer> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         handlePermissions()
     }
 
     private fun joinConference(server: String, apiKey: String?, name: String) {
-        setContentView(R.layout.activity_video_call)
-        statusTextView = findViewById(R.id.status_text)
-        localVideoView = findViewById(R.id.pip_video)
-        remoteVideoView = findViewById(R.id.remote_video)
-
-
         //==============================
         // 1/ CREATE USER AGENT
         //==============================
@@ -88,7 +83,7 @@ class VideoCallActivity : AppCompatActivity() {
 
                         if (streamInfo.listEventType == "added") {
                             if (streamInfo.isRemote) {
-                                connectedConversation?.subscribeToStream(streamInfo.streamId) { status, stream ->
+                                connectedConversation?.subscribeToStream(streamInfo.streamId) { status, _ ->
                                     when (status) {
                                         Conversation.Result.OK -> {
                                             Log.d(TAG, "subscribeToStream success")
@@ -110,14 +105,27 @@ class VideoCallActivity : AppCompatActivity() {
                     {
                         val stream: Stream? = it[0] as Stream?
                         Log.d(TAG, "streamAdded : $stream")
-                        stream?.attachToElement(remoteVideoView)
+
+                        // Allocate a SurfaceViewRenderer
+                        val videoView = getSurfaceViewRenderer(stream)
+                        if (videoView != null) {
+                            // Attach stream to SurfaceViewRenderer
+                            stream?.attachToElement(videoView)
+                        } else
+                            toast("No more video view available for stream $stream")
                     }
 
                     connectedConversation?.on(EVENT_STREAM_REMOVED)
                     {
                         val stream: Stream? = it[0] as Stream?
                         Log.d(TAG, "streamRemoved : $stream")
-                        stream?.detachFromElement(remoteVideoView)
+
+                        // Find SurfaceRenderer used by this stream
+                        val videoView = getSurfaceViewRenderer(stream)
+                        // Detach stream from SurfaceRenderer
+                        stream?.detachFromElement(videoView)
+                        // Mark SurfaceViewRenderer as free to be reused
+                        putBackSurfaceViewRenderer(stream)
                     }
 
                     connectedConversation?.on(EVENT_HANGUP)
@@ -127,7 +135,6 @@ class VideoCallActivity : AppCompatActivity() {
                         runOnUiThread {
                             toast("Call terminated from ${event.from} with reason '${event.reason}'")
                         }
-                        finish()
                     }
 
                     //==============================
@@ -170,6 +177,28 @@ class VideoCallActivity : AppCompatActivity() {
     }
 
     private fun interfaceInit() {
+        setContentView(R.layout.activity_video_call)
+        localVideoView = findViewById(R.id.pip_video)
+
+        // Static provisioning of all available SurfaceViewRenderers.
+        // They could be dynamically created too.
+        addBackSurfaceViewRenderer(remote_video1)
+        addBackSurfaceViewRenderer(remote_video2)
+        addBackSurfaceViewRenderer(remote_video3)
+        addBackSurfaceViewRenderer(remote_video4)
+        addBackSurfaceViewRenderer(remote_video5)
+        addBackSurfaceViewRenderer(remote_video6)
+        addBackSurfaceViewRenderer(remote_video7)
+        addBackSurfaceViewRenderer(remote_video8)
+        addBackSurfaceViewRenderer(remote_video9)
+        addBackSurfaceViewRenderer(remote_video10)
+        addBackSurfaceViewRenderer(remote_video11)
+        addBackSurfaceViewRenderer(remote_video12)
+        addBackSurfaceViewRenderer(remote_video13)
+        addBackSurfaceViewRenderer(remote_video14)
+        addBackSurfaceViewRenderer(remote_video15)
+        addBackSurfaceViewRenderer(remote_video16)
+
         hangup_button.setOnClickListener {
             finish()
         }
@@ -226,8 +255,8 @@ class VideoCallActivity : AppCompatActivity() {
                     //==============================
                     // 6/ JOIN CONVERSATION
                     //==============================
-                    connectedConversation?.join { status, event ->
-                        when (status) {
+                    connectedConversation?.join { joinStatus, event ->
+                        when (joinStatus) {
                             Conversation.Result.OK -> {
                                 //==============================
                                 // 7/ PUBLISH OWN STREAM
@@ -314,16 +343,13 @@ class VideoCallActivity : AppCompatActivity() {
         localVideoView?.setZOrderMediaOverlay(true)
         localVideoView?.setEnableHardwareScaler(true)
         localVideoView?.setMirror(false)
-
-        remoteVideoView?.init(UserAgent.getEglBaseContext(), null)
-        remoteVideoView?.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT)
-        remoteVideoView?.setEnableHardwareScaler(true)
-
     }
 
     private fun toast(message: String) {
         Log.d(TAG, "Toast message: $message")
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onDestroy() {
@@ -333,7 +359,10 @@ class VideoCallActivity : AppCompatActivity() {
 
         ua?.unregister()
         localVideoView?.release()
-        remoteVideoView?.release()
+
+        for ((stream, _) in usedSurfaceViewRenderer) {
+            putBackSurfaceViewRenderer(stream)
+        }
 
         audioTerminate()
 
@@ -368,6 +397,63 @@ class VideoCallActivity : AppCompatActivity() {
         joinConference(server, apiKey, room)
     }
 
+    private fun getSurfaceViewRenderer(stream: Stream?): SurfaceViewRenderer? {
+        if (stream == null)
+            return null
+
+        var surfaceViewRenderer = usedSurfaceViewRenderer[stream]
+
+        // Found already allocated surfaceViewRenderer for this stream. Reuse it.
+        if (surfaceViewRenderer != null)
+            return surfaceViewRenderer
+
+        if (freeSurfaceViewRenderer.isNotEmpty()) {
+            surfaceViewRenderer = freeSurfaceViewRenderer[0]
+        }
+
+        // Oops, no more surfaceViewRenderer
+        if (surfaceViewRenderer == null)
+            return null
+
+        Log.d(TAG, "Allocate surfaceViewRenderer: $surfaceViewRenderer")
+
+        freeSurfaceViewRenderer.remove(surfaceViewRenderer)
+        usedSurfaceViewRenderer[stream] = surfaceViewRenderer
+
+
+        runOnUiThread {
+            surfaceViewRenderer.visibility = View.VISIBLE
+            surfaceViewRenderer.init(UserAgent.getEglBaseContext(), null)
+            // TODO: Activate hardware scaler?
+//            surfaceViewRenderer.setEnableHardwareScaler(true)
+
+            surfaceViewRenderer.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT)
+        }
+
+        return surfaceViewRenderer
+    }
+
+    private fun putBackSurfaceViewRenderer(stream: Stream?) {
+        val surfaceViewRenderer = usedSurfaceViewRenderer.remove(stream)
+        if (surfaceViewRenderer != null) {
+            Log.d(TAG, "putBackSurfaceViewRenderer: $surfaceViewRenderer")
+            freeSurfaceViewRenderer.add(0, surfaceViewRenderer)
+            runOnUiThread {
+                surfaceViewRenderer.release()
+                surfaceViewRenderer.visibility = View.GONE
+            }
+        } else {
+            Log.w(TAG, "putBackSurfaceViewRenderer: Stream $stream not found")
+        }
+    }
+
+    private fun addBackSurfaceViewRenderer(surfaceViewRenderer: SurfaceViewRenderer) {
+        freeSurfaceViewRenderer.add(surfaceViewRenderer)
+        runOnUiThread {
+            surfaceViewRenderer.visibility = View.GONE
+        }
+    }
+
     private fun handlePermissions() {
         val canAccessCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
         val canRecordAudio = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
@@ -379,7 +465,6 @@ class VideoCallActivity : AppCompatActivity() {
             joinConference()
         }
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         Log.w(TAG, "onRequestPermissionsResult: $requestCode $permissions $grantResults")

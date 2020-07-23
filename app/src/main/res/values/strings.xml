@@ -10,7 +10,7 @@
     <string-array name="servers_arrays">
         <item>https://cloud.apizee.com</item>
     </string-array>
-    <string name="version">v1.0.3</string>
+    <string name="version">v1.0.4</string>
     <string name="lobbyHelp">The other party can open this same application with the same room. Only 2 participants are allowed.</string>
     <string name="conference_room">Conference room</string>
     <string name="lobbyRoom">DefaultRoom</string>
