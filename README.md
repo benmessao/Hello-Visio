@@ -3,6 +3,8 @@
 
 # ApiRTC Android application sample (Beta version)
 
+This application is a sample to shows how to integrate video conferencing in native Android application thanks to apiRTC SDK.
+
 ## Requirements :
 Use Android Studio 4.0 to open the project.
 
