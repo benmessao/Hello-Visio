@@ -1,7 +1,7 @@
 <a href="https://www.apirtc.com"><img src="https://apirtc.com/wp-content/uploads/2018/09/ApiRTC_relook_branding_v01.png" width="260"></a>
 
 
-# ApiRTC Android application sample (Beta version)
+# ApiRTC Android application sample
 
 This application is a sample to shows how to integrate video conferencing in native Android application thanks to apiRTC SDK.
 
