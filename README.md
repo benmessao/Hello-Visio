@@ -22,14 +22,13 @@ You can open one of our conferencing tutorial page and join the same room as on 
 API24/Android 7.0 -> API30/Android 10.0+
 
 # SDK - API Reference :
-API reference documentation is published in a beta version in directory "apiRTC/apiRTC-reference"
+API reference documentation is published on [apiRTC WebSite](https://dev.apirtc.com/api/reference_apiRTC_Android-SDK)
 
 # Limitations :
-This demo is in beta stage. We are working on evolutions : Contact us before using it.
-<br/>This sample demonstrate the possibility to established a video conference on Android using apiRTC SDK but is now limited to 2 users.
-<br/>This demo use our demonstration apiKey : you will have to create an account and use your apiKey for project integration.
+<br/>This sample demonstrate the possibility to established a video conference on Android using apiRTC SDK.
+<br/>This demo use our demonstration apiKey : you will have to create an account on [apiRTC dashboard](https://cloud.apirtc.com/) and use your apiKey for project integration.
 <br/>This demo integrate our SDK : Note that our SDK will be published later on a public repository to simplify update and integration in applications.
 <br/>Please note that logs are not constrained on this version.
 
 # Bug/Issues :
-This demo application is in beta stage : Contact us if you detect any issues, feedback are more than welcome !
+Contact us if you detect any issues, feedback are more than welcome !
