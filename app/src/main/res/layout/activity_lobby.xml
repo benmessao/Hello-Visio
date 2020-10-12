@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    tools:context="apizee.webrtc.izeeconf.LobbyActivity">
+    tools:context=".LobbyActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -16,81 +15,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_izeeconf_logo" />
+        app:srcCompat="@mipmap/ic_banner_foreground" />
 
-    <Button
-        android:id="@+id/connectButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorConnected"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:text="@string/connect_btn"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textRoom"
-        tools:text="Connect" />
-
-    <Spinner
-        android:id="@+id/spinnerServer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:entries="@array/servers_arrays"
-        android:prompt="@string/servers_prompt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
-
-    <EditText
-        android:id="@+id/textRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:ems="10"
-        android:hint="@string/conference_room"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:text="@string/lobbyRoom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerServer" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/lobbyHelp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/connectButton" />
+        app:layout_constraintTop_toBottomOf="@id/imageView">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="This application is a sample to show the usage of ApiRTC Android SDK. Available features are demonstrated on different tutorials. Select the tutorial and start !!!"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <Spinner
+            android:id="@+id/spinnerTutorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/tutorials_arrays"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:prompt="@string/tutorials_prompt" />
+
+        <Button
+            android:id="@+id/buttonStart"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
+            android:text="Start" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/version"
+        android:text="Version"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

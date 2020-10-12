@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Izeeconf</string>
+    <string name="app_name">apiRTC</string>
     <string name="connect_btn">Connect</string>
     <string name="hangup_button">Hangup button</string>
 
@@ -10,8 +10,17 @@
     <string-array name="servers_arrays">
         <item>https://cloud.apizee.com</item>
     </string-array>
-    <string name="version">v1.0.4</string>
-    <string name="lobbyHelp">The other party can open this same application with the same room. Only 2 participants are allowed.</string>
+    <string name="tutorials_prompt">DefaultRoom</string>
+    <string-array name="tutorials_arrays">
+        <item>Tuto 1 - Video conference</item>
+        <item>Tuto 2 - Group Chat</item>
+        <item>Tuto 3 - Peer to peer chat</item>
+        <item>Tuto 4 - Peer to peer send data</item>
+        <item>Tuto 5 - Presence group management</item>
+        <item>Tuto 6 - User data sharing</item>
+    </string-array>
+
+    <string name="lobbyHelp">The other party can open this same application with the same room.</string>
     <string name="conference_room">Conference room</string>
     <string name="lobbyRoom">DefaultRoom</string>
 </resources>

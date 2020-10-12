@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
     <TableLayout
+        android:id="@+id/RemoteViews"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="0.25"
@@ -218,6 +220,17 @@
             android:text="Speaker"
             app:layout_constraintLeft_toRightOf="@id/switch_audio"
             app:layout_constraintTop_toTopOf="@id/switch_audio" />
+
+        <ImageButton
+            android:id="@+id/buttonChat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:background="@color/colorBackground"
+            app:layout_constraintBottom_toBottomOf="@id/switch_video"
+            app:layout_constraintLeft_toRightOf="@id/switch_video"
+            app:layout_constraintTop_toTopOf="@id/switch_video"
+            app:srcCompat="@android:drawable/stat_notify_chat" />
 
         <org.webrtc.SurfaceViewRenderer
             android:id="@+id/pip_video"

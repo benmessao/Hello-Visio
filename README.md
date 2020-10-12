@@ -3,7 +3,14 @@
 
 # ApiRTC Android application sample
 
-This application is a sample to shows how to integrate video conferencing in native Android application thanks to apiRTC SDK.
+This application is a sample to shows how to integrate apiRTC features in a native Android application.
+Our application now includes several tutorial : goal is to provide you with code sample depending of the feature you need to integrate :
+- video conferencing
+- Group Chat
+- Peer to peer chat
+- Peer to peer sendData
+- Presence group management
+- User Data sharing
 
 ## Requirements :
 Use Android Studio 4.0 to open the project.
@@ -15,8 +22,14 @@ Use Android Studio 4.0 to open the project.
 - Run App on your Android device
 
 # To test :
-You can open one of our conferencing tutorial page and join the same room as on Android application.
-<br/>For example, you can use following tutorial : https://dev.apirtc.com/tutorials/conferencing/conf
+You can open one of our Web tutorial page on your computer browser and join the same room on your Android application.
+
+<br/>For Tuto 1 : video conferencing example, you can use following tutorial : https://dev.apirtc.com/tutorials/conferencing/conf
+<br/>For Tuto 2 : group chat example, you can use following tutorial : https://dev.apirtc.com/tutorials/conferencing/chat
+<br/>For Tuto 3 : Peer to peer chat example, you can use following tutorial : https://dev.apirtc.com/tutorials/peertopeer/chat
+<br/>For Tuto 4 : Peer to peer sendData example, you can use following tutorial : https://dev.apirtc.com/tutorials/peertopeer/chat
+<br/>For Tuto 5 : It is a "standalone" tutorial
+<br/>For Tuto 6 : user Data sharing, you can use following tutorial : https://dev.apirtc.com/tutorials/peertopeer/chat
 
 # Compatibility :
 API24/Android 7.0 -> API30/Android 10.0+
@@ -24,10 +37,11 @@ API24/Android 7.0 -> API30/Android 10.0+
 # SDK - API Reference :
 API reference documentation is published on [apiRTC WebSite](https://dev.apirtc.com/api/reference_apiRTC_Android-SDK)
 
+<br/>This demo integrate our SDK which is available on *jcenter*
+
 # Limitations :
 <br/>This sample demonstrate the possibility to established a video conference on Android using apiRTC SDK.
 <br/>This demo use our demonstration apiKey : you will have to create an account on [apiRTC dashboard](https://cloud.apirtc.com/) and use your apiKey for project integration.
-<br/>This demo integrate our SDK : Note that our SDK will be published later on a public repository to simplify update and integration in applications.
 <br/>Please note that logs are not constrained on this version.
 
 # Bug/Issues :
