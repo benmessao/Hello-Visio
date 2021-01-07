@@ -39,18 +39,13 @@ class TutorialPeertopeerSendData : AppCompatActivity() {
             addTextChatMessage(contact.getId(), "<b>Me</b> : $message<br/>")
 
             //Actually send message to active contact
-            contact.sendData(message) { result ->
-                when (result) {
-                    is Session.Result.Success -> {
-                        //Message successfully sent!
-                    }
-                    is Session.Result.Failure -> {
-                        //An error occurred...
-                        val messageLine = "<li><i>Could not send message to contact '${contact.getId()}' (reason '${result.errorMessage}'): '$message'</i></li><br/>"
-                        addTextChatMessage(contact.getId(), messageLine)
-                    }
-                }
-
+            contact.sendData(message).then {
+                //Message successfully sent!
+            }.catch {
+                //An error occurred...
+                val error = it as String
+                val messageLine = "<li><i>Could not send message to contact '${contact.getId()}' (reason '$error): '$message'</i></li><br/>"
+                addTextChatMessage(contact.getId(), messageLine)
             }
         }
     }
@@ -66,7 +61,7 @@ class TutorialPeertopeerSendData : AppCompatActivity() {
         //==============================
         val contact = connectedSession?.getOrCreateContact(contactId)
         activeContact = contact
-        //Restore previous chat messsages
+        //Restore previous chat messages
         if (contact != null) {
             runOnUiThread {
                 textChat.text = activeChats[contact.getId()]?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) }
@@ -178,39 +173,38 @@ class TutorialPeertopeerSendData : AppCompatActivity() {
         // REGISTER
         //==============================
         val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
-        ua?.register(optionsRegister) { result, session ->
-            when (result) {
-                UserAgent.Result.OK -> {
-                    Log.d(TAG, "Session successfully connected")
-                    connectedSession = session ?: return@register
+        ua?.register(optionsRegister)?.then {
+            val session = it as Session
+            Log.d(TAG, "Session successfully connected")
+            connectedSession = session
 
-                    runOnUiThread {
-                        // Display user number
-                        textId.text = "ID : ${session.getId()}"
-                    }
-                    //==============================
-                    // WHEN CHAT MESSAGE IS  RECEIVED
-                    //==============================
+            //==============================
+            // WHEN CHAT MESSAGE IS  RECEIVED
+            //==============================
 
-                    //Listen to contact message events globally
-                    connectedSession?.on(Session.EVENT_CONTACT_DATA)
-                    {
-                        val message = it[0] as Session.DataMessage
+            //Listen to contact message events globally
+            connectedSession?.on(Session.EVENT_CONTACT_DATA)
+            {
+                val message = it[0] as Session.DataMessage
 
-                        //Save contact to contact list
-                        addContactToActiveChats(message.sender.getId())
-                        if (activeContact == null) {
-                            setActiveContact(message.sender.getId())
-                        }
-                        val messageLine = "<b>${message.sender.getId()}</b> : ${message.content}<br/>"
-                        addTextChatMessage(message.sender.getId(), messageLine)
-                    }
+                //Save contact to contact list
+                addContactToActiveChats(message.sender.getId())
+                if (activeContact == null) {
+                    setActiveContact(message.sender.getId())
                 }
-                UserAgent.Result.FAILED -> {
-                    toast(ToastyType.TOASTY_ERROR, "User agent registering failed")
-                    finish()
-                }
+                val messageLine = "<b>${message.sender.getId()}</b> : ${message.content}<br/>"
+                addTextChatMessage(message.sender.getId(), messageLine)
             }
+
+            runOnUiThread {
+                // Display user number
+                textId.text = "ID : ${session.getId()}"
+            }
+        }?.catch()
+        {
+            val error = it as String
+            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+            finish()
         }
     }
 
@@ -220,7 +214,7 @@ class TutorialPeertopeerSendData : AppCompatActivity() {
         Log.d(TAG, "Toast message: $message")
         runOnUiThread {
             when (type) {
-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_SHORT).show()
+                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
                 ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
                 ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
             }

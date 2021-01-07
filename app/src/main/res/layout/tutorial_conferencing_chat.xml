@@ -135,7 +135,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="0.9"
+                    android:layout_weight="0.8"
                     android:autofillHints=""
                     android:background="@android:color/white"
                     android:hint="Type a message"
@@ -144,12 +144,44 @@
 
                 <ImageButton
                     android:id="@+id/sendChat"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1"
                     android:src="@android:drawable/ic_menu_send"
                     android:tint="#FFFFFF"
                     app:backgroundTint="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/buttonSendFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_menu_upload"
+                    android:tint="#FFFFFF"
+                    app:backgroundTint="@android:color/transparent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutUploadFile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ProgressBar
+                    android:id="@+id/progressBarUpload"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:progress="0" />
+
+                <Button
+                    android:id="@+id/buttonCancelPush"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:textSize="12sp" />
+
             </LinearLayout>
 
         </LinearLayout>

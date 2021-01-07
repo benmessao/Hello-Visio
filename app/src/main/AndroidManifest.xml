@@ -7,12 +7,16 @@
     <permission android:name="android.permission.RECORD_AUDIO" />
     <permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature
@@ -47,6 +51,9 @@
         <activity
             android:name=".ChatActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".TutorialPeertopeerSendFile"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".LobbyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

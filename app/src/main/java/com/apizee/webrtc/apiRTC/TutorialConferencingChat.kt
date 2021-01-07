@@ -1,7 +1,11 @@
 package com.apizee.webrtc.apiRTC
 
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -13,8 +17,14 @@ import com.apizee.apiRTC.Contact
 import com.apizee.apiRTC.Conversation
 import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_JOINED
 import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_LEFT
+import com.apizee.apiRTC.Conversation.Companion.EVENT_NEW_MEDIA_AVAILABLE
+import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_BEGUN
+import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_ENDED
+import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_PROGRESS
 import com.apizee.apiRTC.Session
 import com.apizee.apiRTC.UserAgent
+import com.apizee.webrtc.apiRTC.Utils.Companion.getFileName
+import com.apizee.webrtc.apiRTC.Utils.Companion.getMimeType
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.tutorial_conferencing_chat.*
 
@@ -23,7 +33,7 @@ class TutorialConferencingChat : AppCompatActivity() {
     private var cloudUrl = "https://cloud.apizee.com"
     private var connectedSession: Session? = null
     private var activeConversation: Conversation? = null
-
+    private var activePushDataId: String? = null
     private var listContactsString = arrayListOf<String>()
     private var listContactsAdapter: ArrayAdapter<*>? = null
 
@@ -34,6 +44,26 @@ class TutorialConferencingChat : AppCompatActivity() {
         }
     }
 
+    private fun setUploadProgress(percentage: Number) {
+        runOnUiThread {
+            progressBarUpload.progress = percentage.toInt()
+        }
+    }
+
+    private fun showUpload(show: Boolean) {
+        runOnUiThread {
+            if (show) {
+                layoutUploadFile.visibility = View.VISIBLE
+                buttonSendFile.disable()
+                buttonCancelPush.enable()
+            } else {
+                layoutUploadFile.visibility = View.GONE
+                buttonCancelPush.disable()
+                buttonSendFile.enable()
+            }
+        }
+    }
+
     //Wrapper to send a message to everyone in the conversation and display sent message in UI
     private fun sendMessageToActiveConversation(message: String) {
         val conversation = activeConversation
@@ -41,7 +71,14 @@ class TutorialConferencingChat : AppCompatActivity() {
             addTextChatMessage("Me", message)
 
             //Actually send message to active contact
-            conversation.sendMessage(message)
+            conversation.sendMessage(message).then {
+                //Message successfully sent!
+            }.catch {
+                val error = it as String
+                //An error occured...
+                val messageLine = "<li><i>Could not send message to conversation '${conversation.getName()}' (reason '$error'): '$message'</i></li><br/>"
+                addTextChatMessage("System", messageLine, true)
+            }
         }
     }
 
@@ -72,20 +109,48 @@ class TutorialConferencingChat : AppCompatActivity() {
             renderUserList()
         }
 
-        activeConversation?.join { joinStatus, event ->
-            when (joinStatus) {
-                Conversation.Result.OK -> {
+        activeConversation?.join()
+                ?.then {
                     //Conversation was successfully joined
                     runOnUiThread {
                         textRoom.text = "Room : ${activeConversation?.getName()}"
                     }
                     showChatBox()
                     renderUserList()
+                }?.catch {
+                    val error = it as String
+                    toast(ToastyType.TOASTY_ERROR, "Conversation join error : '$error'")
                 }
-                Conversation.Result.FAILED -> {
-                    toast(ToastyType.TOASTY_ERROR, "Conversation join error")
-                }
-            }
+
+
+        activeConversation?.on(EVENT_NEW_MEDIA_AVAILABLE)
+        {
+            val sender = it[0] as Contact
+            val cloudMediaInfo = it[1] as Session.CloudMediaInfo
+            addTextChatMessage(sender.getId(), "<a href=\"${Html.escapeHtml(cloudMediaInfo.url)}\">Received file ${Html.escapeHtml(cloudMediaInfo.id)}</a>", true)
+            toast(ToastyType.TOASTY_INFO, "New media available from ${sender.getId()} : ${cloudMediaInfo.url}")
+        }
+
+        activeConversation?.on(EVENT_TRANSFER_BEGUN)
+        {
+            val event = it[0] as Conversation.Companion.EventTransferBegun
+            activePushDataId = event.id
+            addTextChatMessage("System", "Transfer of '${event.name}' with id '${event.id}' begun", false)
+            showUpload(true)
+        }
+
+        activeConversation?.on(EVENT_TRANSFER_ENDED)
+        {
+            val event = it[0] as Conversation.Companion.EventTransferEnded
+            activePushDataId = null
+            addTextChatMessage("System", "Transfer of '${event.name}' with id '${event.id}' ended", false)
+            showUpload(false)
+        }
+
+        activeConversation?.on(EVENT_TRANSFER_PROGRESS)
+        {
+            val event = it[0] as Conversation.Companion.EventTransferProgress
+            setUploadProgress(event.percentage)
         }
 
         // Ask focus on text input
@@ -101,11 +166,17 @@ class TutorialConferencingChat : AppCompatActivity() {
         }
     }
 
-    private fun addTextChatMessage(senderId: String, message: String) {
-        val messageHtml = "<b>$senderId</b> : $message<br/>"
+    private fun addTextChatMessage(senderId: String, message: String, useHtml: Boolean = false) {
+        val senderHtml = "<b>${Html.escapeHtml(senderId)}</b> : "
+        val messageHtml = "$message<br/>"
+        val messageText = "$message\n"
         //Display message in UI
         runOnUiThread {
-            textChat.append(messageHtml.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) })
+            textChat.append(HtmlCompat.fromHtml(senderHtml, HtmlCompat.FROM_HTML_MODE_LEGACY))
+            if (useHtml)
+                textChat.append(HtmlCompat.fromHtml(messageHtml, HtmlCompat.FROM_HTML_MODE_LEGACY))
+            else
+                textChat.append(messageText)
         }
     }
 
@@ -117,8 +188,7 @@ class TutorialConferencingChat : AppCompatActivity() {
                 android.R.layout.simple_list_item_1, listContactsString)
 
         listContacts.adapter = listContactsAdapter
-        // Allow scrolling
-        textChat.movementMethod = ScrollingMovementMethod()
+        textChat.movementMethod = LinkMovementMethod.getInstance()
 
         // Close view when back button pressed
         buttonBack.setOnClickListener {
@@ -159,6 +229,22 @@ class TutorialConferencingChat : AppCompatActivity() {
             false
         })
 
+        buttonSendFile.setOnClickListener {
+            showFileLoadChooser()
+        }
+
+        buttonCancelPush.setOnClickListener {
+            val pushDataId = activePushDataId
+            showUpload(false)
+            if (pushDataId != null) {
+                activeConversation?.cancelPushData(pushDataId)
+                addTextChatMessage("System", "Transfer of file with id '$pushDataId' has been aborted. You can resume it by doing it again.", false)
+                activePushDataId = null
+            }
+        }
+
+        showUpload(false)
+
         start()
     }
 
@@ -173,25 +259,64 @@ class TutorialConferencingChat : AppCompatActivity() {
         // REGISTER
         //==============================
         val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
-        ua?.register(optionsRegister) { result, session ->
-            when (result) {
-                UserAgent.Result.OK -> {
-                    Log.d(TAG, "Session successfully connected")
-                    // Save session
-                    connectedSession = session ?: return@register
+        ua?.register(optionsRegister)?.then {
+            val session = it as Session
+            Log.d(TAG, "Session successfully connected")
+            connectedSession = session
 
-                    runOnUiThread {
-                        // Display user number
-                        textRoom.text = "ID : ${session.getId()}"
-                    }
-
-                }
-                UserAgent.Result.FAILED -> {
-                    toast(ToastyType.TOASTY_ERROR, "User agent registering failed")
-                    finish()
-                }
+            runOnUiThread {
+                textRoom.text = "ID : ${session.getId()}"
             }
+        }?.catch {
+            val error = it as String
+            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+            finish()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == FILE_CHOOSER_LOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            val uri = data.data ?: return
+
+            val filename = getFileName(this, uri) ?: "unknown"
+            val filetype = getMimeType(this, uri)
+
+            val fileContent = contentResolver.openInputStream(uri)?.readBytes()
+            if (fileContent == null) return
+
+            toast(ToastyType.TOASTY_INFO, "Sending file '$filename'")
+            activeConversation?.pushData(Session.PushDataBufferDescriptor(fileContent, filename, filetype, ttl = 30, overwrite = false))
+                    ?.then {
+                        val cloudMediaInfo = it as Session.CloudMediaInfo
+                        addTextChatMessage("System", "<a href=\"${Html.escapeHtml(cloudMediaInfo.url)}\">Sent file ${Html.escapeHtml(cloudMediaInfo.id)}</a>", true)
+                        sendMessageToActiveConversation("New file uploaded: <a href=\"${cloudMediaInfo.url}\" target=\"_blank\" <b>OPEN FILE</b></a>")
+                        toast(ToastyType.TOASTY_SUCCESS, "File upload succeeded")
+                    }?.catch { error ->
+                        activePushDataId = null
+                        showUpload(false)
+                        toast(ToastyType.TOASTY_ERROR, "File upload failed: $error")
+                    }
+        }
+    }
+
+    private fun showFileLoadChooser() {
+        val intent = Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+        startActivityForResult(Intent.createChooser(intent, "Select a file to load"), FILE_CHOOSER_LOAD_REQUEST_CODE)
+    }
+
+    private fun View.disable() {
+        background.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP)
+        isClickable = false
+    }
+
+    private fun View.enable() {
+        background.colorFilter = null
+        isClickable = true
     }
 
     private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
@@ -200,7 +325,7 @@ class TutorialConferencingChat : AppCompatActivity() {
         Log.d(TAG, "Toast message: $message")
         runOnUiThread {
             when (type) {
-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_SHORT).show()
+                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
                 ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
                 ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
             }
@@ -215,5 +340,6 @@ class TutorialConferencingChat : AppCompatActivity() {
 
     companion object {
         private const val TAG = "TutorialConfChat"
+        private const val FILE_CHOOSER_LOAD_REQUEST_CODE = 1230
     }
 }

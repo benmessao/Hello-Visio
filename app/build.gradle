@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
     compileSdkVersion 30
     defaultConfig {
         applicationId 'apizee.webrtc.izeeconf'
-        minSdkVersion 24
+        minSdkVersion 21
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 10100
+        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -28,14 +28,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.20'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    testImplementation 'junit:junit:4.13'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'org.webrtc:google-webrtc:1.0.30039'
-    implementation 'com.apizee.apiRTC:apiRTC:1.0.3'
+    implementation 'org.webrtc:google-webrtc:1.0.32006'
+    implementation 'com.apizee.apiRTC:apiRTC:1.1.0'
 
     implementation 'com.github.GrenderG:Toasty:1.5.0'
 }

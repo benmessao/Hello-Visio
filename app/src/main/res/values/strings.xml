@@ -13,11 +13,12 @@
     <string name="tutorials_prompt">DefaultRoom</string>
     <string-array name="tutorials_arrays">
         <item>Tuto 1 - Video conference</item>
-        <item>Tuto 2 - Group Chat</item>
+        <item>Tuto 2 - Group Chat and transfer</item>
         <item>Tuto 3 - Peer to peer chat</item>
         <item>Tuto 4 - Peer to peer send data</item>
         <item>Tuto 5 - Presence group management</item>
         <item>Tuto 6 - User data sharing</item>
+        <item>Tuto 7 - Peer to peer send file</item>
     </string-array>
 
     <string name="lobbyHelp">The other party can open this same application with the same room.</string>

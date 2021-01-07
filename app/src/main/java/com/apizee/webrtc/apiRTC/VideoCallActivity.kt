@@ -14,8 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.apizee.apiRTC.Contact
-import com.apizee.apiRTC.Conversation
+import com.apizee.apiRTC.*
 import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_JOINED
 import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_LEFT
 import com.apizee.apiRTC.Conversation.Companion.EVENT_HANGUP
@@ -24,8 +23,6 @@ import com.apizee.apiRTC.Conversation.Companion.EVENT_STREAM_ADDED
 import com.apizee.apiRTC.Conversation.Companion.EVENT_STREAM_LIST_CHANGED
 import com.apizee.apiRTC.Conversation.Companion.EVENT_STREAM_REMOVED
 import com.apizee.apiRTC.Session.Companion.EVENT_ERROR
-import com.apizee.apiRTC.Stream
-import com.apizee.apiRTC.UserAgent
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_video_call.*
 import org.webrtc.RendererCommon
@@ -67,125 +64,120 @@ class VideoCallActivity : AppCompatActivity() {
         // 2/ REGISTER
         //==============================
         val optionsRegister = UserAgent.RegisterInformation(cloudUrl = server)
-        ua?.register(optionsRegister) { result, session ->
+        ua?.register(optionsRegister)?.then { itSession ->
+            val session = itSession as Session
+            Log.d(TAG, "Session successfully connected")
+            val connectedSession = session
 
-            when (result) {
-                UserAgent.Result.OK -> {
-                    Log.d(TAG, "Session successfully connected")
-                    val connectedSession = session ?: return@register
+            connectedSession.on(EVENT_ERROR)
+            {
+                val message = it[0] as String
+                toast(ToastyType.TOASTY_ERROR, "Received error '$message''")
+                finish()
+            }
 
-                    connectedSession.on(EVENT_ERROR)
-                    {
-                        val message = it[0] as String
-                        toast(ToastyType.TOASTY_ERROR, "Received error '$message''")
-                        finish()
-                    }
+            //==============================
+            // 3/ CREATE CONVERSATION
+            //==============================
+            connectedConversation = connectedSession.getOrCreateConversation(name)
 
-                    //==============================
-                    // 3/ CREATE CONVERSATION
-                    //==============================
-                    connectedConversation = connectedSession.getOrCreateConversation(name)
+            //==========================================================
+            // 4/ ADD EVENT LISTENER : WHEN NEW STREAM IS AVAILABLE IN CONVERSATION
+            //==========================================================
+            connectedConversation?.on(EVENT_STREAM_LIST_CHANGED)
+            {
+                val streamInfo: Conversation.StreamInfo = it[0] as Conversation.StreamInfo
+                Log.d(TAG, "streamListChanged : $streamInfo")
 
-                    //==========================================================
-                    // 4/ ADD EVENT LISTENER : WHEN NEW STREAM IS AVAILABLE IN CONVERSATION
-                    //==========================================================
-                    connectedConversation?.on(EVENT_STREAM_LIST_CHANGED)
-                    {
-                        val streamInfo: Conversation.StreamInfo = it[0] as Conversation.StreamInfo
-                        Log.d(TAG, "streamListChanged : $streamInfo")
-
-                        if (streamInfo.listEventType == "added") {
-                            if (streamInfo.isRemote) {
-                                connectedConversation?.subscribeToStream(streamInfo.streamId) { status, _ ->
-                                    when (status) {
-                                        Conversation.Result.OK -> {
-                                            Log.d(TAG, "subscribeToStream success")
-                                        }
-                                        Conversation.Result.FAILED -> {
-                                            toast(ToastyType.TOASTY_ERROR, "subscribeToStream error")
-                                        }
-                                    }
+                if (streamInfo.listEventType == "added") {
+                    if (streamInfo.isRemote) {
+                        connectedConversation?.subscribeToStream(streamInfo.streamId)
+                                ?.then {
+                                    Log.d(TAG, "subscribeToStream success")
                                 }
-                            }
-                        }
+                                ?.catch { itError ->
+                                    val error = itError as String
+                                    toast(ToastyType.TOASTY_ERROR, "subscribeToStream error : '$error'")
+                                }
                     }
-
-
-                    //=====================================================
-                    // 4 BIS/ ADD EVENT LISTENER : WHEN STREAM WAS REMOVED FROM THE CONVERSATION
-                    //=====================================================
-                    connectedConversation?.on(EVENT_STREAM_ADDED)
-                    {
-                        val stream: Stream? = it[0] as Stream?
-                        Log.d(TAG, "streamAdded : $stream")
-
-                        // Allocate a SurfaceViewRenderer
-                        val videoView = getSurfaceViewRenderer(stream)
-                        if (videoView != null) {
-                            // Attach stream to SurfaceViewRenderer
-                            stream?.attachToElement(videoView)
-                        } else
-                            toast(ToastyType.TOASTY_ERROR, "No more video view available for stream $stream")
-                    }
-
-                    connectedConversation?.on(EVENT_STREAM_REMOVED)
-                    {
-                        val stream: Stream? = it[0] as Stream?
-                        Log.d(TAG, "streamRemoved : $stream")
-
-                        // Find SurfaceRenderer used by this stream
-                        val videoView = getSurfaceViewRenderer(stream)
-                        // Detach stream from SurfaceRenderer
-                        stream?.detachFromElement(videoView)
-                        // Mark SurfaceViewRenderer as free to be reused
-                        putBackSurfaceViewRenderer(stream)
-                    }
-
-                    connectedConversation?.on(EVENT_HANGUP)
-                    {
-                        val event = it[0] as Conversation.EventStreamHangup
-                        Log.d(TAG, "Event: $EVENT_HANGUP")
-                        runOnUiThread {
-                            toast(ToastyType.TOASTY_INFO, "Call terminated from ${event.from} with reason '${event.reason}'")
-                        }
-                    }
-
-                    //==============================
-                    // 5/ CREATE LOCAL STREAM
-                    //==============================
-                    createStream(switch_audio.isChecked, switch_video.isChecked, (cameraSelector.selectedItem as UserAgent.MediaDeviceList.MediaDevice?)?.id)
-
-                    // Handle received chat messages
-                    connectedConversation?.on(EVENT_MESSAGE)
-                    {
-                        val message = it[0] as Conversation.Message
-                        ChatActivity.addMessage(message.sender.getId(), message.content)
-                        toast(ToastyType.TOASTY_INFO, "Received message from '${message.sender.getId()}': '${message.content}'")
-                    }
-
-                    // ====================================
-                    // Handle contact events
-                    // ====================================
-                    connectedConversation?.on(EVENT_CONTACT_JOINED) {
-                        val contact = it[0] as Contact
-                        Log.d(TAG, "Contact that has joined : ${contact.getId()}")
-                        val contacts = connectedConversation?.getContacts()
-                        ChatActivity.setContacts(contacts)
-                    }
-
-                    connectedConversation?.on(EVENT_CONTACT_LEFT) {
-                        val contact = it[0] as Contact
-                        Log.d(TAG, "Contact that has left : ${contact.getId()}")
-                        val contacts = connectedConversation?.getContacts()
-                        ChatActivity.setContacts(contacts)
-                    }
-                }
-                UserAgent.Result.FAILED -> {
-                    Log.d(TAG, "Session creation failed!")
-                    toast(ToastyType.TOASTY_ERROR, "Register failed")
-                    finish()
                 }
             }
+
+
+            //=====================================================
+            // 4 BIS/ ADD EVENT LISTENER : WHEN STREAM WAS REMOVED FROM THE CONVERSATION
+            //=====================================================
+            connectedConversation?.on(EVENT_STREAM_ADDED)
+            {
+                val stream: Stream? = it[0] as Stream?
+                Log.d(TAG, "streamAdded : $stream")
+
+                // Allocate a SurfaceViewRenderer
+                val videoView = getSurfaceViewRenderer(stream)
+                if (videoView != null) {
+                    // Attach stream to SurfaceViewRenderer
+                    stream?.attachToElement(videoView)
+                } else
+                    toast(ToastyType.TOASTY_ERROR, "No more video view available for stream $stream")
+            }
+
+            connectedConversation?.on(EVENT_STREAM_REMOVED)
+            {
+                val stream: Stream? = it[0] as Stream?
+                Log.d(TAG, "streamRemoved : $stream")
+
+                // Find SurfaceRenderer used by this stream
+                val videoView = getSurfaceViewRenderer(stream)
+                // Detach stream from SurfaceRenderer
+                stream?.detachFromElement(videoView)
+                // Mark SurfaceViewRenderer as free to be reused
+                putBackSurfaceViewRenderer(stream)
+            }
+
+            connectedConversation?.on(EVENT_HANGUP)
+            {
+                val event = it[0] as Conversation.EventStreamHangup
+                Log.d(TAG, "Event: $EVENT_HANGUP")
+                runOnUiThread {
+                    toast(ToastyType.TOASTY_INFO, "Call terminated from ${event.from} with reason '${event.reason}'")
+                }
+            }
+
+            //==============================
+            // 5/ CREATE LOCAL STREAM
+            //==============================
+            createStream(switch_audio.isChecked, switch_video.isChecked, (cameraSelector.selectedItem as UserAgent.MediaDeviceList.MediaDevice?)?.id)
+
+            // Handle received chat messages
+            connectedConversation?.on(EVENT_MESSAGE)
+            {
+                val message = it[0] as Conversation.Message
+                ChatActivity.addMessage(message.sender.getId(), message.content)
+                toast(ToastyType.TOASTY_INFO, "Received message from '${message.sender.getId()}': '${message.content}'")
+            }
+
+            // ====================================
+            // Handle contact events
+            // ====================================
+            connectedConversation?.on(EVENT_CONTACT_JOINED) {
+                val contact = it[0] as Contact
+                Log.d(TAG, "Contact that has joined : ${contact.getId()}")
+                val contacts = connectedConversation?.getContacts()
+                ChatActivity.setContacts(contacts)
+            }
+
+            connectedConversation?.on(EVENT_CONTACT_LEFT) {
+                val contact = it[0] as Contact
+                Log.d(TAG, "Contact that has left : ${contact.getId()}")
+                val contacts = connectedConversation?.getContacts()
+                ChatActivity.setContacts(contacts)
+            }
+            if (connectedConversation != null)
+                Log.d(TAG, "Conversation successfully connected")
+        }?.catch {
+            val error = it as String
+            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+            finish()
         }
     }
 
@@ -281,9 +273,9 @@ class VideoCallActivity : AppCompatActivity() {
         createStreamOptions.constraints.video = video
         createStreamOptions.videoInputId = videoInputId
 
-        ua?.createStream(createStreamOptions) { status, stream ->
-            when (status) {
-                UserAgent.Result.OK -> {
+        ua?.createStream(createStreamOptions)
+                ?.then {
+                    val stream = it as Stream
                     Log.d(TAG, "Create stream OK")
                     val oldStream = localStream
                     // Remove old stream
@@ -292,33 +284,29 @@ class VideoCallActivity : AppCompatActivity() {
                     // Save local stream
                     localStream = stream
                     // Attach stream
-                    stream?.attachToElement(localVideoView)
+                    stream.attachToElement(localVideoView)
 
                     connectedConversation?.replacePublishedStream(localStream, oldStream)
 
                     //==============================
                     // 6/ JOIN CONVERSATION
                     //==============================
-                    connectedConversation?.join { joinStatus, event ->
-                        when (joinStatus) {
-                            Conversation.Result.OK -> {
+                    connectedConversation?.join()
+                            ?.then {
                                 //==============================
                                 // 7/ PUBLISH OWN STREAM
                                 //==============================
-                                Log.d(TAG, "Received event joined with $event")
                                 connectedConversation?.publish(localStream)
+                                Log.d(TAG, "Published local stream")
+                            }?.catch { itError ->
+                                val error = itError as String
+                                toast(ToastyType.TOASTY_ERROR, "Conversation join error : '$error'")
+
                             }
-                            Conversation.Result.FAILED -> {
-                                toast(ToastyType.TOASTY_ERROR, "Conversation join error")
-                            }
-                        }
-                    }
-                }
-                UserAgent.Result.FAILED -> {
+                    true
+                }?.catch {
                     toast(ToastyType.TOASTY_ERROR, "Create stream failed")
                 }
-            }
-        }
     }
 
     private fun updateStream(audio: Boolean, video: Boolean, videoInputId: String?) {
@@ -330,9 +318,9 @@ class VideoCallActivity : AppCompatActivity() {
         if (connectedConversation == null)
             return
 
-        ua?.createStream(createStreamOptions) { status, stream ->
-            when (status) {
-                UserAgent.Result.OK -> {
+        ua?.createStream(createStreamOptions)
+                ?.then {
+                    val stream = it as Stream
                     Log.d(TAG, "Create stream OK")
                     val oldStream = localStream
                     // Save local stream
@@ -348,13 +336,11 @@ class VideoCallActivity : AppCompatActivity() {
                     }
 
                     // Attach stream
-                    stream?.attachToElement(localVideoView)
+                    stream.attachToElement(localVideoView)
                 }
-                UserAgent.Result.FAILED -> {
+                ?.catch {
                     toast(ToastyType.TOASTY_ERROR, "Create stream failed")
                 }
-            }
-        }
     }
 
     private fun audioInit() {
