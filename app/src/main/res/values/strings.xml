@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">apiRTC</string>
+    <string name="app_name">Hello-Visio</string>
     <string name="connect_btn">Connect</string>
     <string name="hangup_button">Hangup button</string>
 

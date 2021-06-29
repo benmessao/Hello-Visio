@@ -42,9 +42,9 @@
         <activity
             android:name=".TutorialPresenceGroupManagement"
             android:windowSoftInputMode="adjustPan" />
-        <activity
+        <!--activity
             android:name=".TutorialConferencingVideo"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"-->
         <activity
             android:name=".TutorialUserDataSharing"
             android:windowSoftInputMode="adjustPan" />
@@ -54,7 +54,7 @@
         <activity
             android:name=".TutorialPeertopeerSendFile"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".LobbyActivity">
+        <activity android:name=".TutorialConferencingVideo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

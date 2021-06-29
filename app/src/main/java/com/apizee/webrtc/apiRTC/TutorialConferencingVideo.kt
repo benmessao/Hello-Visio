@@ -29,7 +29,7 @@ class TutorialConferencingVideo : AppCompatActivity() {
             val server = findViewById<Spinner>(R.id.spinnerServer).selectedItem.toString()
             val room = findViewById<EditText>(R.id.textRoom).text.toString()
 
-            startVideoCall(server, room, "myDemoApiKey")
+            startVideoCall(server, room, "b0dfc52e7766516f2efdebeb990d006c")
         }
     }
 
@@ -40,4 +40,7 @@ class TutorialConferencingVideo : AppCompatActivity() {
         intent.putExtra("apiKey", apiKey)
         startActivity(intent)
     }
+
+
 }
+

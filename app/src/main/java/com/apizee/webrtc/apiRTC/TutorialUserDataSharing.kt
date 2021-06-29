@@ -51,7 +51,7 @@ class TutorialUserDataSharing : AppCompatActivity() {
         //==============================
         // CREATE USER AGENT
         //==============================
-        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:myDemoApiKey")
+        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:b0dfc52e7766516f2efdebeb990d006c")
         ua = UserAgent(this, optionsUa)
 
         //==============================
