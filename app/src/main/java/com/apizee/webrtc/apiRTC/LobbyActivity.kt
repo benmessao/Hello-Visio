@@ -35,6 +35,7 @@ class LobbyActivity : AppCompatActivity() {
                 5 -> Intent(this, TutorialPresenceGroupManagement::class.java)
                 6 -> Intent(this, TutorialUserDataSharing::class.java)
                 7 -> Intent(this, TutorialPeertopeerSendFile::class.java)
+                8 -> Intent(this, PeerToPeerCall::class.java)
                 else -> null
             }
 

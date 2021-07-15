@@ -19,6 +19,7 @@
         <item>Tuto 5 - Presence group management</item>
         <item>Tuto 6 - User data sharing</item>
         <item>Tuto 7 - Peer to peer send file</item>
+        <item>Peer to peer call</item>
     </string-array>
 
     <string name="lobbyHelp">The other party can open this same application with the same room.</string>

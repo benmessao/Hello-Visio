@@ -54,7 +54,7 @@
         <activity
             android:name=".TutorialPeertopeerSendFile"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".TutorialConferencingVideo">
+        <activity android:name=".PeerToPeerCall">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
