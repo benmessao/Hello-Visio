@@ -1,4 +1,4 @@
-package com.example.authetification
+package com.apizee.webrtc.apiRTC
 
 import android.app.ProgressDialog
 import android.content.Intent

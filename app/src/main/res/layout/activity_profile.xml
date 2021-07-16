@@ -1,40 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    android:gravity="center"
     tools:context=".ProfileActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My profile"
-        android:padding="30dp"
-        android:textSize="30dp"
-        style="@style/TextAppearance.AppCompat.Headline"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You're logged-In as"
-        style="@style/TextAppearance.MaterialComponents.Caption"/>
-    <TextView
         android:id="@+id/emailTv"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email"
-        style="@style/TextAppearance.MaterialComponents.Body1"/>
+        android:text="Email" />
+
+    <!--android:src="@drawable/ic_baseline_call_24"
+        android:background="@drawable/round_basic_button"-->
+
+
+    <Button
+        android:id="@+id/redButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/round_green_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/callPeer"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="288dp"
+
+        android:padding="8dp"
+        android:text="Appeler"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/peerId"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="196dp"
+        android:hint="Adresse mail de votre contact"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/logoutBtn"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/teal_200"
-        android:text="Logout"/>
+        android:text="Déconnexion"
+        app:backgroundTint="@color/darkGray"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="632dp" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
 
     <string name="logo">Logo</string>
     <string name="mute_microphone">Mute microphone</string>
-
+    <string name="no_account">Don\'t have an account ?<b> Sign up</b></string>
     <string name="servers_prompt">Choose a server</string>
     <string-array name="servers_arrays">
         <item>https://cloud.apizee.com</item>

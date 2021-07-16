@@ -6,4 +6,6 @@
     <color name="colorConnected">#40b633</color>
     <color name="green">#00ff00</color>
     <color name="colorBackground">#f0f0f0</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="darkGray">#696969</color>
 </resources>
