@@ -1,38 +1,22 @@
 package com.apizee.webrtc.apiRTC
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.util.Log
-import android.view.KeyEvent
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.HtmlCompat
 import com.apizee.apiRTC.Contact
 import com.apizee.apiRTC.Conversation
-import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_JOINED
-import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_LEFT
-import com.apizee.apiRTC.Conversation.Companion.EVENT_NEW_MEDIA_AVAILABLE
-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_BEGUN
-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_ENDED
-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_PROGRESS
 import com.apizee.apiRTC.Session
 import com.apizee.apiRTC.UserAgent
-import com.apizee.webrtc.apiRTC.Utils.Companion.getFileName
-import com.apizee.webrtc.apiRTC.Utils.Companion.getMimeType
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.tutorial_conferencing_chat.*
-import kotlinx.android.synthetic.main.tutorial_conferencing_chat.buttonBack
-import kotlinx.android.synthetic.main.tutorial_conferencing_chat.textRoom
 import kotlinx.android.synthetic.main.tutorial_conferencing_video.*
 import kotlinx.android.synthetic.main.tutorial_peertopeer_chat.*
 import kotlinx.android.synthetic.main.tutorial_peertopeer_chat.textId
 import kotlinx.android.synthetic.main.tutorial_peertopeer_send_data.*
 import kotlin.random.Random
+import kotlin.random.Random.Default.nextInt
 
 class PeerToPeerCall : AppCompatActivity(){
     private var ua: UserAgent? = null
@@ -51,7 +35,6 @@ class PeerToPeerCall : AppCompatActivity(){
 
         setContentView(R.layout.peertopeer)
 
-        // Close view when back button pressed
 
         val callButton = findViewById<Button>(R.id.callPeer)
         val peerId = findViewById<EditText>(R.id.peerId)
@@ -101,7 +84,8 @@ class PeerToPeerCall : AppCompatActivity(){
         //==============================
         // REGISTER
         //==============================
-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+        val idTest = nextInt(9999999999999.toInt())
+        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl, id = idTest.toLong())
         ua?.register(optionsRegister)?.then {
             val session = it as Session
             Log.d(TAG, "Session successfully connected")
@@ -170,11 +154,9 @@ class PeerToPeerCall : AppCompatActivity(){
 
     override fun onDestroy() {
         super.onDestroy()
-        ua?.unregister()
-        connectedSession = null
+        //ua?.unregister()
+        //connectedSession = null
     }
 
-
-        //Contact : on message received, join room
 
     }
