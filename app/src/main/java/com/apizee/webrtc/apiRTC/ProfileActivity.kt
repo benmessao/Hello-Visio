@@ -16,6 +16,7 @@ import com.apizee.apiRTC.Contact
 import com.apizee.apiRTC.Session
 import com.apizee.apiRTC.UserAgent
 import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.tutorial_peertopeer_chat.textId
 import kotlin.random.Random
 
@@ -37,9 +38,10 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         handlePermissions()
+
         //configure action bar
-        actionBar = supportActionBar!!
-        actionBar.title = "Profile"
+        //actionBar = supportActionBar!!
+        //actionBar.title = "Profile"
 
         //init firebase auth
         firebaseAuth = FirebaseAuth.getInstance()
@@ -68,7 +70,7 @@ class ProfileActivity : AppCompatActivity() {
 
         callButton.setOnClickListener{
             //Get contact ID
-            val id = peerId.text.toString()
+            val id = stringToLong(peerId.text.toString()).toString()
             setActiveContact(id)
 
             //Create & join conference room
@@ -96,7 +98,8 @@ class ProfileActivity : AppCompatActivity() {
         //==============================
         // REGISTER
         //==============================
-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+        val myId = stringToLong(emailTv.text.toString())
+        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl, id = myId)
         ua?.register(optionsRegister)?.then {
             val session = it as Session
             Log.d(TAG, "Session successfully connected")
@@ -202,6 +205,28 @@ class ProfileActivity : AppCompatActivity() {
         private const val TAG = "ProfileActivity"
         private const val PERMISSIONS_REQUEST = 1220
     }
+
+    private fun stringToLong(username : String) : Long {
+        var id = ""
+        var i = 0
+        loop@ for (x in username) {
+            if ( x.equals('@', true) || i>10){
+                break@loop
+            } else {
+                id += charToLong(x)
+            }
+        }
+        return id.toLong()
+    }
+
+    private fun charToLong(letter : Char) : String {
+        if (letter.equals('.',true) || letter.equals('-',true) || letter.equals('0',true) || letter.equals('1',true) || letter.equals('.',true) || letter.equals('.',true) || letter.equals('.',true) || letter.equals('.',true) || letter.equals('.',true) || letter.equals('.',true) || letter.equals('.',true) || letter.equals('.',true)){
+           return((letter.toByte()-44).toString())
+        } else{
+            return((letter.toByte()-94).toString())
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

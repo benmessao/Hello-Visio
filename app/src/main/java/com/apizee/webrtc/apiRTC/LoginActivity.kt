@@ -1,6 +1,7 @@
 package com.apizee.webrtc.apiRTC
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import com.apizee.webrtc.apiRTC.databinding.ActivityLoginBinding
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -31,10 +33,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        //FirebaseApp.initializeApp(applicationContext)
         //configure actionbar
-        actionBar = supportActionBar!!
-        actionBar.title = "Login"
+        //actionBar = supportActionBar!!
+        //actionBar.title = "Login"
 
         //configure progress dialog
         progressDialog = ProgressDialog(this)
