@@ -1,6 +1,8 @@
 package com.apizee.webrtc.apiRTC
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -11,6 +13,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import com.apizee.apiRTC.Contact
 import com.apizee.apiRTC.Conversation
@@ -39,10 +43,6 @@ class PeerToPeerCall : AppCompatActivity(){
     private var cloudUrl = "https://cloud.apizee.com"
     private var connectedSession: Session? = null
     private var activeContact: Contact? = null
-    private var activeConversation: Conversation? = null
-    private var activePushDataId: String? = null
-    private var listContactsString = arrayListOf<String>()
-    private var listContactsAdapter: ArrayAdapter<*>? = null
     private var available: Boolean = true
 
 
@@ -50,6 +50,8 @@ class PeerToPeerCall : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.peertopeer)
+
+        handlePermissions()
 
         // Close view when back button pressed
 
@@ -146,6 +148,7 @@ class PeerToPeerCall : AppCompatActivity(){
     }
     companion object {
         private const val TAG = "PeerToPeerCall"
+        private const val PERMISSIONS_REQUEST = 1220
     }
 
     private fun setActiveContact(contactId: String) {
@@ -172,6 +175,18 @@ class PeerToPeerCall : AppCompatActivity(){
         super.onDestroy()
         ua?.unregister()
         connectedSession = null
+    }
+
+    private fun handlePermissions() {
+        val canAccessCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+        val canRecordAudio = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+        val canReadFiles = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        val canWriteFiles = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        if (!canAccessCamera || !canRecordAudio || !canReadFiles || !canWriteFiles) {
+            // Missing permissions ; request them
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSIONS_REQUEST
+            )
+        }
     }
 
 

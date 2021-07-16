@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1020826026448",
+    "project_id": "hello-visio",
+    "storage_bucket": "hello-visio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020826026448:android:0100499e893962735539d5",
+        "android_client_info": {
+          "package_name": "com.apizee.webrtc.apiRTC"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020826026448-1oi3pb00el80iqtfn675lhag7h6soj92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apizee.webrtc.apiRTC",
+            "certificate_hash": "1d3c8344097e6835656907314b70d04f231b99f1"
+          }
+        },
+        {
+          "client_id": "1020826026448-gmv97c5hqjv125h55i4vdm13gmrk8iik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMqYFXOfJYqLti4GkiMPr7tNj3As1oui0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020826026448-gmv97c5hqjv125h55i4vdm13gmrk8iik.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
