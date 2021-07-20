@@ -36,8 +36,8 @@ class SignUpActivity : AppCompatActivity() {
 
         //configure progress dialog
         progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Please wait")
-        progressDialog.setMessage("Creating account ...")
+        progressDialog.setTitle("Patientez")
+        progressDialog.setMessage("Création de votre compte ...")
         progressDialog.setCanceledOnTouchOutside(false)
 
         //init firebase auth
@@ -61,15 +61,15 @@ class SignUpActivity : AppCompatActivity() {
         //validate data
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             //invalid email format
-            binding.emailEt.error = "Invalid email format"
+            binding.emailEt.error = "Adresse mail invalide"
         }
         else if (TextUtils.isEmpty(password)){
             //password isn't entered
-            binding.passwordEt.error = "Please enter password"
+            binding.passwordEt.error = "Entrez un mot de passe"
         }
         else if (password.length <6){
             //password length is less than 6
-            binding.passwordEt.error = "Password must at least be 6 characters long"
+            binding.passwordEt.error = "Votre mot de passe doit être d'au moins 6 charactères"
         }
 
         else{

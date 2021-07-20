@@ -40,8 +40,8 @@ class LoginActivity : AppCompatActivity() {
 
         //configure progress dialog
         progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Please wait")
-        progressDialog.setMessage("Logging in ...")
+        progressDialog.setTitle("Patientez")
+        progressDialog.setMessage("Connexion ...")
         progressDialog.setCanceledOnTouchOutside(false)
 
         //init firebaseAuth
@@ -69,11 +69,11 @@ class LoginActivity : AppCompatActivity() {
         //validate data
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             //invalid email format
-            binding.emailEt.setError("Invalid email format")
+            binding.emailEt.setError("Adressse mail non valide")
         }
         else if (TextUtils.isEmpty(password)){
             //no password entered
-            binding.passwordEt.error = "Please enter password"
+            binding.passwordEt.error = "Entrez un mot de passe"
         }
         else{
             //data is validated, begin login

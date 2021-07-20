@@ -28,7 +28,7 @@
             android:id="@+id/emailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="Adresse mail"
             android:inputType="textEmailAddress"/>
 
 
@@ -46,14 +46,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="Enter your password..."/>
+            android:hint="Mot de passe"/>
     </com.google.android.material.textfield.TextInputLayout>
     <!--Login button-->
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Se connecter"
         app:backgroundTint="@color/teal_200"
         android:layout_below="@id/passwordTil"
         android:layout_marginTop="10dp"/>

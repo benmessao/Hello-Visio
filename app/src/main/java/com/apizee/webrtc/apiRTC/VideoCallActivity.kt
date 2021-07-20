@@ -171,6 +171,7 @@ class VideoCallActivity : AppCompatActivity() {
                 Log.d(TAG, "Contact that has left : ${contact.getId()}")
                 val contacts = connectedConversation?.getContacts()
                 ChatActivity.setContacts(contacts)
+                finish()
             }
             if (connectedConversation != null)
                 Log.d(TAG, "Conversation successfully connected")
@@ -463,7 +464,7 @@ class VideoCallActivity : AppCompatActivity() {
             surfaceViewRenderer.visibility = View.VISIBLE
             surfaceViewRenderer.init(UserAgent.getEglBaseContext(), null)
             // TODO: Activate hardware scaler?
-//            surfaceViewRenderer.setEnableHardwareScaler(true)
+            surfaceViewRenderer.setEnableHardwareScaler(true)
 
             surfaceViewRenderer.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT)
         }

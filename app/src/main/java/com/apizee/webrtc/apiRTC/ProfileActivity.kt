@@ -214,6 +214,7 @@ class ProfileActivity : AppCompatActivity() {
                 break@loop
             } else {
                 id += charToLong(x)
+                i += 1
             }
         }
         return id.toLong()
