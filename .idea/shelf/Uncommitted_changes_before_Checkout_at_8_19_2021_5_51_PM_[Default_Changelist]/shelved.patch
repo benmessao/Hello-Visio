@@ -1,0 +1,3449 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.apizee.webrtc.apiRTC\">\r\n\r\n    <permission android:name=\"android.permission.INTERNET\" />\r\n    <permission android:name=\"android.permission.CAMERA\" />\r\n    <permission android:name=\"android.permission.RECORD_AUDIO\" />\r\n    <permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />\r\n    <permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.CAMERA\" />\r\n    <uses-permission android:name=\"android.permission.RECORD_AUDIO\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-feature android:name=\"android.hardware.camera\" />\r\n    <uses-feature\r\n        android:glEsVersion=\"0x00020000\"\r\n        android:required=\"true\" />\r\n\r\n    <application\r\n        android:allowBackup=\"false\"\r\n        android:icon=\"@mipmap/ic_launcher_apirtc\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_apirtc_round\"\r\n        android:supportsRtl=\"false\"\r\n        android:theme=\"@style/AppTheme\">\r\n        <activity\r\n            android:name=\".TutorialPeertopeerChat\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity\r\n            android:name=\".TutorialPeertopeerSendData\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity\r\n            android:name=\".TutorialConferencingChat\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity\r\n            android:name=\".TutorialPresenceGroupManagement\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <!--activity\r\n            android:name=\".TutorialConferencingVideo\"\r\n            android:windowSoftInputMode=\"adjustPan\"-->\r\n        <activity\r\n            android:name=\".TutorialUserDataSharing\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity\r\n            android:name=\".ChatActivity\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n        <activity\r\n            android:name=\".TutorialPeertopeerSendFile\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity android:name=\".ProfileActivity\"/>\r\n        <activity android:name=\".SignUpActivity\" />\r\n        <activity android:name=\".PeerToPeerCall\"/>\r\n        <activity android:name=\".LoginActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".VideoCallActivity\"\r\n            android:configChanges=\"orientation|screenSize|keyboardHidden\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/AndroidManifest.xml	(date 1626952840883)
+@@ -19,44 +19,21 @@
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+ 
+     <uses-feature android:name="android.hardware.camera" />
++    <uses-feature android:name="android.hardware.camera.setParameters" android:required="false" />
++    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+     <uses-feature
+         android:glEsVersion="0x00020000"
+         android:required="true" />
+ 
+     <application
+         android:allowBackup="false"
+-        android:icon="@mipmap/ic_launcher_apirtc"
++        android:icon="@mipmap/logo_small_icon_only"
+         android:label="@string/app_name"
+-        android:roundIcon="@mipmap/ic_launcher_apirtc_round"
++        android:roundIcon="@mipmap/logo_small_icon_only"
+         android:supportsRtl="false"
+         android:theme="@style/AppTheme">
+-        <activity
+-            android:name=".TutorialPeertopeerChat"
+-            android:windowSoftInputMode="adjustPan" />
+-        <activity
+-            android:name=".TutorialPeertopeerSendData"
+-            android:windowSoftInputMode="adjustPan" />
+-        <activity
+-            android:name=".TutorialConferencingChat"
+-            android:windowSoftInputMode="adjustPan" />
+-        <activity
+-            android:name=".TutorialPresenceGroupManagement"
+-            android:windowSoftInputMode="adjustPan" />
+-        <!--activity
+-            android:name=".TutorialConferencingVideo"
+-            android:windowSoftInputMode="adjustPan"-->
+-        <activity
+-            android:name=".TutorialUserDataSharing"
+-            android:windowSoftInputMode="adjustPan" />
+-        <activity
+-            android:name=".ChatActivity"
+-            android:windowSoftInputMode="adjustResize" />
+-        <activity
+-            android:name=".TutorialPeertopeerSendFile"
+-            android:windowSoftInputMode="adjustPan" />
+         <activity android:name=".ProfileActivity"/>
+         <activity android:name=".SignUpActivity" />
+-        <activity android:name=".PeerToPeerCall"/>
+         <activity android:name=".LoginActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+Index: app/src/main/res/layout/tutorial_conferencing_chat.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/tutorial_conferencing_chat.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/layout/tutorial_conferencing_chat.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,191 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/colorBackground"
+-    tools:context=".TutorialConferencingChat">
+-
+-    <LinearLayout
+-        android:id="@+id/layoutTop"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:orientation="horizontal"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
+-
+-        <ImageButton
+-            android:id="@+id/buttonBack"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.1"
+-            android:background="@android:color/transparent"
+-            android:contentDescription="Back button"
+-            app:srcCompat="@drawable/abc_vector_test" />
+-
+-        <TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.6"
+-            android:gravity="center"
+-            android:text="Group chat demo"
+-            android:textAlignment="center"
+-            android:textSize="18sp"
+-            android:textStyle="bold" />
+-
+-        <TextView
+-            android:id="@+id/textRoom"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center_vertical"
+-            android:layout_weight="0.3"
+-            android:text="Room"
+-            android:textAlignment="textEnd"
+-            android:textSize="18sp" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:id="@+id/linearLayout"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:layout_margin="0dp"
+-        android:orientation="vertical"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/layoutTop">
+-
+-
+-        <LinearLayout
+-            android:id="@+id/conversationSelector"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.1"
+-            android:orientation="horizontal">
+-
+-            <EditText
+-                android:id="@+id/inputConversation"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_marginStart="8dp"
+-                android:layout_marginTop="8dp"
+-                android:layout_marginEnd="8dp"
+-                android:layout_marginBottom="8dp"
+-                android:layout_weight="0.9"
+-                android:autofillHints=""
+-                android:background="@android:color/white"
+-                android:hint="Conversation name"
+-                android:inputType="textLongMessage|text"
+-                android:text="" />
+-
+-            <ImageButton
+-                android:id="@+id/buttonConversationSet"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.1"
+-                android:contentDescription="Set room"
+-                android:src="@android:drawable/ic_menu_send"
+-                android:tint="#FFFFFF"
+-                app:backgroundTint="@android:color/transparent" />
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:id="@+id/layoutChat"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.9"
+-            android:orientation="vertical"
+-            android:visibility="invisible">
+-
+-            <TextView
+-                android:id="@+id/textChat"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.5"
+-                android:background="@android:color/white"
+-                android:gravity="bottom"
+-                android:scrollbars="vertical" />
+-
+-            <ListView
+-                android:id="@+id/listContacts"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.3"
+-                android:background="@android:color/white"
+-                android:scrollbars="vertical" />
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_weight="0.1"
+-                android:orientation="horizontal">
+-
+-                <EditText
+-                    android:id="@+id/inputChat"
+-                    android:layout_width="0dp"
+-                    android:layout_height="match_parent"
+-                    android:layout_marginStart="8dp"
+-                    android:layout_marginTop="8dp"
+-                    android:layout_marginEnd="8dp"
+-                    android:layout_marginBottom="8dp"
+-                    android:layout_weight="0.8"
+-                    android:autofillHints=""
+-                    android:background="@android:color/white"
+-                    android:hint="Type a message"
+-                    android:inputType="textLongMessage|text"
+-                    android:text="" />
+-
+-                <ImageButton
+-                    android:id="@+id/sendChat"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="match_parent"
+-                    android:src="@android:drawable/ic_menu_send"
+-                    android:tint="#FFFFFF"
+-                    app:backgroundTint="@android:color/transparent" />
+-
+-                <ImageButton
+-                    android:id="@+id/buttonSendFile"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="match_parent"
+-                    android:src="@android:drawable/ic_menu_upload"
+-                    android:tint="#FFFFFF"
+-                    app:backgroundTint="@android:color/transparent" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:id="@+id/layoutUploadFile"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <ProgressBar
+-                    android:id="@+id/progressBarUpload"
+-                    style="?android:attr/progressBarStyleHorizontal"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_gravity="center"
+-                    android:layout_margin="4dp"
+-                    android:layout_weight="1"
+-                    android:progress="0" />
+-
+-                <Button
+-                    android:id="@+id/buttonCancelPush"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Cancel"
+-                    android:textSize="12sp" />
+-
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-    </LinearLayout>
+-
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/TutorialUserDataSharing.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/TutorialUserDataSharing.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/TutorialUserDataSharing.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,114 +0,0 @@
+-package com.apizee.webrtc.apiRTC
+-
+-import android.os.Bundle
+-import android.util.Log
+-import android.widget.ArrayAdapter
+-import android.widget.Toast
+-import androidx.appcompat.app.AppCompatActivity
+-import com.apizee.apiRTC.Session
+-import com.apizee.apiRTC.UserAgent
+-import es.dmoral.toasty.Toasty
+-import kotlinx.android.synthetic.main.tutorial_user_data_sharing.*
+-import org.json.JSONException
+-import org.json.JSONObject
+-
+-
+-class TutorialUserDataSharing : AppCompatActivity() {
+-    private var ua: UserAgent? = null
+-    private var cloudUrl = "https://cloud.apizee.com"
+-    private var connectedSession: Session? = null
+-    private var listContactsString = arrayListOf<String>()
+-    private var listContactsAdapter: ArrayAdapter<*>? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.tutorial_user_data_sharing)
+-
+-        listContactsAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listContactsString)
+-        listContacts.adapter = listContactsAdapter
+-
+-        // Close view when back button pressed
+-        buttonBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        buttonSetUserData.setOnClickListener {
+-            val userData = inputUserData.text.toString()
+-            if (userData != "") {
+-                try {
+-                    val jsonUserData = JSONObject(userData)
+-                    connectedSession?.setUserData(jsonUserData)
+-                } catch (e: JSONException) {
+-                    toast(ToastyType.TOASTY_ERROR, "Invalid JSON user data")
+-                }
+-            }
+-        }
+-
+-        start()
+-    }
+-
+-    private fun start() {
+-        //==============================
+-        // CREATE USER AGENT
+-        //==============================
+-        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:b0dfc52e7766516f2efdebeb990d006c")
+-        ua = UserAgent(this, optionsUa)
+-
+-        //==============================
+-        // REGISTER
+-        //==============================
+-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+-
+-        ua?.register(optionsRegister)?.then {
+-            val session = it as Session
+-            Log.d(TAG, "Session successfully connected")
+-            connectedSession = session
+-            connectedSession?.setUsername("guest")
+-
+-            //Listen to contact list updates
+-            connectedSession?.on(Session.EVENT_CONTACT_LIST_UPDATE)
+-            {
+-                renderUserList()
+-            }
+-            runOnUiThread {
+-                textId.text = "ID : ${session.getId()}"
+-            }
+-        }?.catch {
+-            val error = it as String
+-            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+-            finish()
+-        }
+-    }
+-
+-    private fun renderUserList() {
+-        runOnUiThread {
+-            listContactsString.clear()
+-            // Display user data of each member of the group
+-            connectedSession?.getContacts()?.forEach { contact -> listContactsString.add("usertata(${contact.getId()})=\n${contact.getUserData()}") }
+-            listContactsAdapter?.notifyDataSetChanged()
+-        }
+-    }
+-
+-    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
+-
+-    private fun toast(type: ToastyType, message: String) {
+-        Log.d(TAG, "Toast message: $message")
+-        runOnUiThread {
+-            when (type) {
+-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
+-                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+-                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-
+-    override fun onDestroy() {
+-        super.onDestroy()
+-        ua?.unregister()
+-        connectedSession = null
+-    }
+-
+-    companion object {
+-        private const val TAG = "TutorialUserDataSharing"
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/layout/tutorial_peertopeer_send_data.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/tutorial_peertopeer_send_data.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/layout/tutorial_peertopeer_send_data.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,158 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/colorBackground"
+-    tools:context=".TutorialPeertopeerSendData">
+-
+-    <LinearLayout
+-        android:id="@+id/layoutTop"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:orientation="horizontal"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
+-
+-        <ImageButton
+-            android:id="@+id/buttonBack"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.1"
+-            android:background="@android:color/transparent"
+-            android:contentDescription="Back button"
+-            app:srcCompat="@drawable/abc_vector_test" />
+-
+-        <TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.6"
+-            android:gravity="center"
+-            android:text="1 - 1 sendData"
+-            android:textAlignment="center"
+-            android:textSize="18sp"
+-            android:textStyle="bold" />
+-
+-        <TextView
+-            android:id="@+id/textId"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_weight="0.3"
+-            android:text="ID: "
+-            android:textAlignment="textEnd"
+-            android:textSize="18sp" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:id="@+id/linearLayout"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:layout_margin="0dp"
+-        android:orientation="vertical"
+-        android:weightSum="1"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/layoutTop">
+-
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.1"
+-            android:orientation="horizontal">
+-
+-            <EditText
+-                android:id="@+id/inputContact"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_marginStart="8dp"
+-                android:layout_marginTop="8dp"
+-                android:layout_marginEnd="8dp"
+-                android:layout_marginBottom="8dp"
+-                android:layout_weight="0.9"
+-                android:autofillHints=""
+-                android:background="@android:color/white"
+-                android:hint="Contact ID"
+-                android:inputType="textLongMessage|text"
+-                android:text="" />
+-
+-            <ImageButton
+-                android:id="@+id/buttonContactAdd"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.1"
+-                android:src="@android:drawable/ic_menu_send"
+-                android:tint="#FFFFFF"
+-                app:backgroundTint="@android:color/transparent" />
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:id="@+id/layoutChat"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.9"
+-            android:orientation="vertical"
+-            android:visibility="invisible">
+-
+-            <TextView
+-                android:id="@+id/textChat"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.5"
+-                android:background="@android:color/white"
+-                android:gravity="bottom"
+-                android:scrollbars="vertical" />
+-
+-            <ListView
+-                android:id="@+id/listContacts"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.3"
+-                android:background="@android:color/white"
+-                android:scrollbars="vertical" />
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_weight="0.1"
+-                android:orientation="horizontal">
+-
+-                <EditText
+-                    android:id="@+id/inputChat"
+-                    android:layout_width="0dp"
+-                    android:layout_height="match_parent"
+-                    android:layout_marginStart="8dp"
+-                    android:layout_marginTop="8dp"
+-                    android:layout_marginEnd="8dp"
+-                    android:layout_marginBottom="8dp"
+-                    android:layout_weight="0.9"
+-                    android:autofillHints=""
+-                    android:background="@android:color/white"
+-                    android:hint="Type a message"
+-                    android:inputType="textLongMessage|text"
+-                    android:text="" />
+-
+-                <ImageButton
+-                    android:id="@+id/sendChat"
+-                    android:layout_width="0dp"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="0.1"
+-                    android:src="@android:drawable/ic_menu_send"
+-                    android:tint="#FFFFFF"
+-                    app:backgroundTint="@android:color/transparent" />
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-    </LinearLayout>
+-
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerSendData.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerSendData.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerSendData.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,233 +0,0 @@
+-package com.apizee.webrtc.apiRTC
+-
+-import android.os.Bundle
+-import android.text.method.ScrollingMovementMethod
+-import android.util.Log
+-import android.view.KeyEvent
+-import android.view.View
+-import android.widget.ArrayAdapter
+-import android.widget.ListView
+-import android.widget.Toast
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.core.text.HtmlCompat
+-import com.apizee.apiRTC.Contact
+-import com.apizee.apiRTC.Session
+-import com.apizee.apiRTC.UserAgent
+-import es.dmoral.toasty.Toasty
+-import kotlinx.android.synthetic.main.tutorial_peertopeer_send_data.*
+-
+-class TutorialPeertopeerSendData : AppCompatActivity() {
+-    private var ua: UserAgent? = null
+-    private var cloudUrl = "https://cloud.apizee.com"
+-    private var connectedSession: Session? = null
+-    private var activeContact: Contact? = null
+-    private var activeChats: HashMap<String, String> = HashMap()
+-
+-    private var listContactsString = arrayListOf<String>()
+-    private var listContactsAdapter: ArrayAdapter<*>? = null
+-
+-    private fun showChatBox() {
+-        runOnUiThread {
+-            layoutChat.visibility = View.VISIBLE
+-        }
+-    }
+-
+-    //Wrapper to send a message to a contact and display sent message in UI
+-    private fun sendMessageToActiveContact(message: String) {
+-        val contact = activeContact
+-        if (message != "" && contact != null) {
+-            addTextChatMessage(contact.getId(), "<b>Me</b> : $message<br/>")
+-
+-            //Actually send message to active contact
+-            contact.sendData(message).then {
+-                //Message successfully sent!
+-            }.catch {
+-                //An error occurred...
+-                val error = it as String
+-                val messageLine = "<li><i>Could not send message to contact '${contact.getId()}' (reason '$error): '$message'</i></li><br/>"
+-                addTextChatMessage(contact.getId(), messageLine)
+-            }
+-        }
+-    }
+-
+-    //Select active contact for chatbox UI
+-    private fun setActiveContact(contactId: String) {
+-        if (activeContact == null) {
+-            // Show chatbox
+-            showChatBox()
+-        }
+-        //==============================
+-        // GET CONTACT OBJECT
+-        //==============================
+-        val contact = connectedSession?.getOrCreateContact(contactId)
+-        activeContact = contact
+-        //Restore previous chat messages
+-        if (contact != null) {
+-            runOnUiThread {
+-                textChat.text = activeChats[contact.getId()]?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) }
+-            }
+-        }
+-        // Ask focus on text input
+-        runOnUiThread { inputChat.requestFocus() }
+-    }
+-
+-    //Initialize chat history for contact if needed
+-    private fun addContactToActiveChats(contactId: String) {
+-        if (!activeChats.containsKey(contactId)) {
+-            activeChats[contactId] = ""
+-            listContactsString.add(contactId)
+-            runOnUiThread {
+-                listContactsAdapter?.notifyDataSetChanged()
+-                listContacts.setItemChecked(listContactsString.indexOf(contactId), true)
+-            }
+-        }
+-    }
+-
+-    private fun addTextChatMessage(senderId: String, message: String) {
+-        activeChats[senderId] += message //save message
+-        //Display message in UI
+-        runOnUiThread {
+-            if (activeContact?.getId() == senderId) {
+-                textChat.text = ""
+-                textChat.append(activeChats[senderId]?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) })
+-            }
+-        }
+-    }
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.tutorial_peertopeer_send_data)
+-
+-        listContactsAdapter = ArrayAdapter<String>(this,
+-                android.R.layout.simple_list_item_activated_1, listContactsString)
+-
+-        listContacts.choiceMode = ListView.CHOICE_MODE_SINGLE
+-        listContacts.adapter = listContactsAdapter
+-        listContacts.setOnItemClickListener { parent, view, position, id ->
+-            val contactId = listContactsAdapter?.getItem(position).toString()
+-            setActiveContact(contactId)
+-        }
+-
+-        // Allow scrolling
+-        textChat.movementMethod = ScrollingMovementMethod()
+-
+-        // Close view when back button pressed
+-        buttonBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        //==============================
+-        // START CHAT
+-        //==============================
+-        buttonContactAdd.setOnClickListener {
+-            // Get contact from it's id
+-            val contactId = inputContact.text.toString()
+-            if (contactId != "") {
+-                inputContact.text.clear()
+-                addContactToActiveChats(contactId)
+-                setActiveContact(contactId)
+-            }
+-        }
+-        // Handle enter key
+-        inputContact.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+-                // Get contact from it's id
+-                val contactId = inputContact.text.toString()
+-                if (contactId != "") {
+-                    inputContact.text.clear()
+-                    addContactToActiveChats(contactId)
+-                    setActiveContact(contactId)
+-                }
+-                return@OnKeyListener true
+-            }
+-            false
+-        })
+-
+-        //==============================
+-        // SEND CHAT MESSAGE TO ACTIVE CONTACT
+-        //==============================
+-        sendChat.setOnClickListener {
+-            sendMessageToActiveContact(inputChat.text.toString())
+-            inputChat.text.clear()
+-        }
+-        inputChat.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+-                sendMessageToActiveContact(inputChat.text.toString())
+-                inputChat.text.clear()
+-                return@OnKeyListener true
+-            }
+-            false
+-        })
+-
+-        start()
+-    }
+-
+-    private fun start() {
+-        //==============================
+-        // CREATE USER AGENT
+-        //==============================
+-        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:myDemoApiKey")
+-        ua = UserAgent(this, optionsUa)
+-
+-        //==============================
+-        // REGISTER
+-        //==============================
+-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+-        ua?.register(optionsRegister)?.then {
+-            val session = it as Session
+-            Log.d(TAG, "Session successfully connected")
+-            connectedSession = session
+-
+-            //==============================
+-            // WHEN CHAT MESSAGE IS  RECEIVED
+-            //==============================
+-
+-            //Listen to contact message events globally
+-            connectedSession?.on(Session.EVENT_CONTACT_DATA)
+-            {
+-                val message = it[0] as Session.DataMessage
+-
+-                //Save contact to contact list
+-                addContactToActiveChats(message.sender.getId())
+-                if (activeContact == null) {
+-                    setActiveContact(message.sender.getId())
+-                }
+-                val messageLine = "<b>${message.sender.getId()}</b> : ${message.content}<br/>"
+-                addTextChatMessage(message.sender.getId(), messageLine)
+-            }
+-
+-            runOnUiThread {
+-                // Display user number
+-                textId.text = "ID : ${session.getId()}"
+-            }
+-        }?.catch()
+-        {
+-            val error = it as String
+-            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+-            finish()
+-        }
+-    }
+-
+-    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
+-
+-    private fun toast(type: ToastyType, message: String) {
+-        Log.d(TAG, "Toast message: $message")
+-        runOnUiThread {
+-            when (type) {
+-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
+-                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+-                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-
+-    override fun onDestroy() {
+-        super.onDestroy()
+-        ua?.unregister()
+-        connectedSession = null
+-    }
+-
+-    companion object {
+-        private const val TAG = "TutorialPeerSendData"
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerSendFile.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerSendFile.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerSendFile.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,397 +0,0 @@
+-package com.apizee.webrtc.apiRTC
+-
+-import android.content.ActivityNotFoundException
+-import android.content.Intent
+-import android.graphics.BitmapFactory
+-import android.graphics.Color
+-import android.graphics.PorterDuff
+-import android.net.Uri
+-import android.os.Bundle
+-import android.util.Log
+-import android.view.View
+-import android.widget.ArrayAdapter
+-import android.widget.ListView
+-import android.widget.Toast
+-import androidx.appcompat.app.AppCompatActivity
+-import com.apizee.apiRTC.*
+-import com.apizee.webrtc.apiRTC.Utils.Companion.getFileName
+-import com.apizee.webrtc.apiRTC.Utils.Companion.getMimeType
+-import es.dmoral.toasty.Toasty
+-import kotlinx.android.synthetic.main.tutorial_peertopeer_send_file.*
+-
+-
+-class TutorialPeertopeerSendFile : AppCompatActivity() {
+-    private var ua: UserAgent? = null
+-    private var cloudUrl = "https://cloud.apizee.com"
+-    private var connectedSession: Session? = null
+-    private var listContactsString = arrayListOf<String>()
+-    private var listContactsAdapter: ArrayAdapter<*>? = null
+-    private var lastFileContent: ByteArray? = null
+-    private var lastInvitation: SentInvitation? = null
+-    private var selectedContactId: String? = null
+-    private var uploadUri: Uri? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.tutorial_peertopeer_send_file)
+-
+-        listContactsAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_activated_1, listContactsString)
+-        listContacts.adapter = listContactsAdapter
+-        listContacts.choiceMode = ListView.CHOICE_MODE_SINGLE
+-        listContacts.setOnItemClickListener { parent, view, position, id ->
+-            selectedContactId = listContactsAdapter?.getItem(position).toString()
+-            renderUploadFile()
+-        }
+-
+-        // Close view when back button pressed
+-        buttonBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        buttonBrowseFile.setOnClickListener {
+-            showFileLoadChooser()
+-        }
+-
+-        buttonSaveFile.setOnClickListener {
+-            showFileSaveChooser()
+-        }
+-
+-        buttonSendFile.setOnClickListener {
+-            val contactId = selectedContactId
+-            val uri = uploadUri
+-            if (contactId == null || uri == null) return@setOnClickListener
+-            val contact = connectedSession?.getOrCreateContact(contactId)
+-
+-            val filename = getFileName(this, uri) ?: "unknown"
+-            val mimeType = getMimeType(this, uri)
+-
+-            val data = contentResolver.openInputStream(uri)?.readBytes()
+-            if (data == null) return@setOnClickListener
+-            val invitation = contact?.sendFile(Session.FileInfo(filename, mimeType), data)
+-            lastInvitation = invitation
+-            if (invitation != null) {
+-                runOnUiThread {
+-                    setUploadProgress(0)
+-                    textStatusSend.text = "Waiting accept"
+-                    buttonSendFile.disable()
+-                    buttonCancelSend.enable()
+-                }
+-            }
+-
+-            contact?.on(Contact.EVENT_FILE_TRANSFER_PROGRESS) {
+-                val fileInfo = it[0] as Session.FileInfo
+-                val transferInformation = it[1] as Session.TransferInformation
+-                setUploadProgress(transferInformation.percentage)
+-            }
+-
+-            contact?.on(Contact.EVENT_FILE_SENT_SUCCESSFULLY) {
+-                val fileInfo = it[0] as Session.FileInfo
+-                val transferInformation = it[1] as Session.TransferInformation
+-                toast(ToastyType.TOASTY_SUCCESS, "File '${fileInfo.name}' successfully sent")
+-                runOnUiThread {
+-                    textStatusSend.text = "OK"
+-                    buttonSendFile.enable()
+-                    buttonCancelSend.disable()
+-                }
+-                lastInvitation = null
+-            }
+-
+-            contact?.on(Contact.EVENT_FILE_TRANSFER_ERROR) {
+-                val error = it[0] as String
+-                val invitationId = it[1] as String
+-                toast(ToastyType.TOASTY_ERROR, "Transfer failed for invitation '${invitationId}' : $error")
+-                runOnUiThread {
+-                    textStatusSend.text = "FAILED"
+-                    buttonSendFile.enable()
+-                    buttonCancelSend.disable()
+-                }
+-                lastInvitation = null
+-            }
+-        }
+-
+-        buttonCancelSend.setOnClickListener {
+-            lastInvitation?.cancel()
+-            runOnUiThread {
+-                textStatusSend.text = "Cancelled"
+-                buttonSendFile.enable()
+-                buttonCancelSend.disable()
+-            }
+-        }
+-
+-        showInvitation(false)
+-        showDownload(false)
+-        showPreview(false)
+-        runOnUiThread {
+-            buttonSendFile.disable()
+-            buttonCancelSend.disable()
+-        }
+-        start()
+-    }
+-
+-    private fun setDownloadProgress(percentage: Number) {
+-        runOnUiThread {
+-            progressBarDownload.progress = percentage.toInt()
+-        }
+-    }
+-
+-    private fun showDownload(show: Boolean) {
+-        runOnUiThread {
+-            if (show)
+-                layoutDownloadFile.visibility = View.VISIBLE
+-            else
+-                layoutDownloadFile.visibility = View.GONE
+-        }
+-    }
+-
+-    private fun setUploadProgress(percentage: Number) {
+-        runOnUiThread {
+-            progressBarUpload.progress = percentage.toInt()
+-        }
+-    }
+-
+-    private fun showInvitation(show: Boolean) {
+-        runOnUiThread {
+-            if (show)
+-                layoutAnswerFile.visibility = View.VISIBLE
+-            else {
+-                layoutAnswerFile.visibility = View.GONE
+-                buttonAcceptFile.setOnClickListener(null)
+-                buttonRejectFile.setOnClickListener(null)
+-            }
+-        }
+-    }
+-
+-    private fun showSaveButton(show: Boolean) {
+-        runOnUiThread {
+-            if (show)
+-                buttonSaveFile.visibility = View.VISIBLE
+-            else
+-                buttonSaveFile.visibility = View.GONE
+-        }
+-    }
+-
+-    private fun showPreview(show: Boolean) {
+-        runOnUiThread {
+-            if (show)
+-                imageView.visibility = View.VISIBLE
+-            else
+-                imageView.visibility = View.GONE
+-        }
+-    }
+-
+-    private fun start() {
+-        //==============================
+-        // CREATE USER AGENT
+-        //==============================
+-        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:myDemoApiKey")
+-        ua = UserAgent(this, optionsUa)
+-
+-        //==============================
+-        // REGISTER
+-        //==============================
+-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+-
+-        ua?.register(optionsRegister)?.then { itSession ->
+-            val session = itSession as Session
+-            Log.d(TAG, "Session successfully connected")
+-            connectedSession = session
+-            connectedSession?.setUsername("guest")
+-
+-            //Listen to contact list updates
+-            connectedSession?.on(Session.EVENT_CONTACT_LIST_UPDATE)
+-            {
+-                renderUserList()
+-                renderUploadFile()
+-            }
+-            connectedSession?.on(Session.EVENT_FILE_TRANSFER_INVITATION)
+-            { it1 ->
+-                val receivedFileTransferInvitation = it1[0] as ReceivedFileTransferInvitation
+-                Log.d(TAG, "invitation : $receivedFileTransferInvitation")
+-
+-                buttonAcceptFile.setOnClickListener {
+-                    setDownloadProgress(0)
+-                    lastFileContent = null
+-                    showInvitation(false)
+-                    showDownload(true)
+-                    showSaveButton(false)
+-                    showPreview(false)
+-                    receivedFileTransferInvitation.accept().then {
+-                        val fileObject = it as ReceivedFileTransferInvitation.FileObject
+-                        toast(ToastyType.TOASTY_SUCCESS, "File '${fileObject.name}' successfully received")
+-                        val bmp = BitmapFactory.decodeByteArray(fileObject.file, 0, fileObject.file.size)
+-                        runOnUiThread {
+-                            if (bmp != null) {
+-                                imageView.setImageBitmap(bmp)
+-                                showPreview(true)
+-                            }
+-                            lastFileContent = fileObject.file
+-                            showSaveButton(true)
+-                        }
+-                    }.catch {
+-                        val error = it as String
+-                        toast(ToastyType.TOASTY_ERROR, "receivedFileTransferInvitation accept failure '$error'")
+-                        showDownload(false)
+-                    }
+-
+-
+-                }
+-
+-                buttonRejectFile.setOnClickListener {
+-                    receivedFileTransferInvitation.decline("User rejected file transfer")
+-                    showInvitation(false)
+-                }
+-
+-                receivedFileTransferInvitation.on(Invitation.EVENT_STATUS_CHANGE) {
+-                    val status = it[0] as Invitation.StatusChangeInfo
+-                    Log.d(TAG, "invitation : $receivedFileTransferInvitation")
+-
+-                    if (status.status == Invitation.Status.INVITATION_STATUS_ENDED || status.status == Invitation.Status.INVITATION_STATUS_CANCELLED) {
+-                        showInvitation(false)
+-                    }
+-                }
+-
+-                receivedFileTransferInvitation.on(ReceivedFileTransferInvitation.EVENT_PROGRESS) {
+-                    val status = it[0] as Session.TransferInformation
+-                    setDownloadProgress(status.percentage)
+-                }
+-
+-                runOnUiThread {
+-                    textDownloadName.text = receivedFileTransferInvitation.getFileInfo().name
+-                    textDownloadName2.text = receivedFileTransferInvitation.getFileInfo().name
+-                }
+-                showInvitation(true)
+-            }
+-            runOnUiThread {
+-                textId.text = "ID : ${session.getId()}"
+-            }
+-        }?.catch {
+-            val error = it as String
+-            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+-            finish()
+-        }
+-    }
+-
+-    private fun renderUserList() {
+-        runOnUiThread {
+-            var newPosition = -1
+-            var i = 0
+-            listContactsString.clear()
+-            // Display user data of each member of the group
+-            connectedSession?.getContacts()?.forEach {
+-                if (it.isOnline()) {
+-                    listContactsString.add("${it.getId()}")
+-                    if (it.getId() == selectedContactId) newPosition = i
+-                    i++
+-                }
+-            }
+-            listContactsAdapter?.notifyDataSetChanged()
+-            listContacts.setItemChecked(listContacts.checkedItemPosition, false)
+-            if (newPosition != -1) {
+-                listContacts.setItemChecked(newPosition, true)
+-            }
+-        }
+-    }
+-
+-    private fun renderUploadFile() {
+-        var filename: String? = null
+-        val uri = uploadUri
+-        if (uri != null) filename = getFileName(this, uri)
+-        runOnUiThread {
+-            textUploadName.text = "$filename -> $selectedContactId"
+-        }
+-    }
+-
+-    private fun openFile(uri: Uri) {
+-        try {
+-            val intent = Intent(Intent.ACTION_VIEW)
+-            val mimeType = getMimeType(this, uri)
+-            intent.setDataAndType(uri, mimeType)
+-            startActivity(intent)
+-        } catch (e: ActivityNotFoundException) {
+-            toast(ToastyType.TOASTY_ERROR, "No application available to open this file")
+-        }
+-    }
+-
+-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+-        super.onActivityResult(requestCode, resultCode, data)
+-
+-        if (requestCode == FILE_CHOOSER_SAVE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+-            val selectedFile = data.data //The uri with the location of the file
+-
+-            val content = lastFileContent
+-            if (selectedFile != null && content != null) {
+-                try {
+-                    val outputStream = contentResolver.openOutputStream(selectedFile)
+-                    outputStream?.write(content)
+-                    outputStream?.close()
+-                    outputStream?.let { toast(ToastyType.TOASTY_SUCCESS, "File saved.") }
+-                } catch (e: Exception) {
+-                    toast(ToastyType.TOASTY_ERROR, "Impossible to save the file for reason '$e'. Please retry.")
+-                }
+-            } else
+-                toast(ToastyType.TOASTY_ERROR, "No file to save")
+-        }
+-
+-        if (requestCode == FILE_CHOOSER_LOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+-            val uri = data.data ?: return
+-            uploadUri = uri
+-            renderUploadFile()
+-            runOnUiThread { buttonSendFile.enable() }
+-        }
+-    }
+-
+-    private fun View.disable() {
+-        background.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP)
+-        isClickable = false
+-    }
+-
+-    private fun View.enable() {
+-        background.colorFilter = null
+-        isClickable = true
+-    }
+-
+-    private fun showFileLoadChooser() {
+-        val intent = Intent()
+-                .setType("*/*")
+-                .setAction(Intent.ACTION_GET_CONTENT)
+-                .addCategory(Intent.CATEGORY_OPENABLE)
+-        startActivityForResult(Intent.createChooser(intent, "Select a file to load"), FILE_CHOOSER_LOAD_REQUEST_CODE)
+-    }
+-
+-    private fun showFileSaveChooser() {
+-        val intent = Intent()
+-                .setType("*/*")
+-                .setAction(Intent.ACTION_CREATE_DOCUMENT)
+-                .addCategory(Intent.CATEGORY_OPENABLE)
+-                .putExtra(Intent.EXTRA_TITLE, textDownloadName2.text)
+-
+-        startActivityForResult(Intent.createChooser(intent, "Select a filename to save"), FILE_CHOOSER_SAVE_REQUEST_CODE)
+-    }
+-
+-
+-    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
+-
+-    private fun toast(type: ToastyType, message: String) {
+-        Log.d(TAG, "Toast message: $message")
+-        runOnUiThread {
+-            when (type) {
+-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
+-                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+-                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-
+-    override fun onDestroy() {
+-        super.onDestroy()
+-        ua?.unregister()
+-        connectedSession = null
+-    }
+-
+-    companion object {
+-        private const val TAG = "TutorialP2PSendFile"
+-
+-        private const val FILE_CHOOSER_LOAD_REQUEST_CODE = 1230
+-        private const val FILE_CHOOSER_SAVE_REQUEST_CODE = 1231
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/layout/tutorial_peertopeer_chat.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/tutorial_peertopeer_chat.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/layout/tutorial_peertopeer_chat.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,158 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/colorBackground"
+-    tools:context=".TutorialPeertopeerChat">
+-
+-    <LinearLayout
+-        android:id="@+id/layoutTop"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:orientation="horizontal"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
+-
+-        <ImageButton
+-            android:id="@+id/buttonBack"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.1"
+-            android:background="@android:color/transparent"
+-            android:contentDescription="Back button"
+-            app:srcCompat="@drawable/abc_vector_test" />
+-
+-        <TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.6"
+-            android:gravity="center"
+-            android:text="1 - 1 chat demo"
+-            android:textAlignment="center"
+-            android:textSize="18sp"
+-            android:textStyle="bold" />
+-
+-        <TextView
+-            android:id="@+id/textId"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_weight="0.3"
+-            android:text="ID: "
+-            android:textAlignment="textEnd"
+-            android:textSize="18sp" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:id="@+id/linearLayout"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:layout_margin="0dp"
+-        android:orientation="vertical"
+-        android:weightSum="1"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/layoutTop">
+-
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.1"
+-            android:orientation="horizontal">
+-
+-            <EditText
+-                android:id="@+id/inputContact"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_marginStart="8dp"
+-                android:layout_marginTop="8dp"
+-                android:layout_marginEnd="8dp"
+-                android:layout_marginBottom="8dp"
+-                android:layout_weight="0.9"
+-                android:autofillHints=""
+-                android:background="@android:color/white"
+-                android:hint="Contact ID"
+-                android:inputType="textLongMessage|text"
+-                android:text="" />
+-
+-            <ImageButton
+-                android:id="@+id/buttonContactAdd"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.1"
+-                android:src="@android:drawable/ic_menu_send"
+-                android:tint="#FFFFFF"
+-                app:backgroundTint="@android:color/transparent" />
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:id="@+id/layoutChat"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.9"
+-            android:orientation="vertical"
+-            android:visibility="invisible">
+-
+-            <TextView
+-                android:id="@+id/textChat"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.5"
+-                android:background="@android:color/white"
+-                android:gravity="bottom"
+-                android:scrollbars="vertical" />
+-
+-            <ListView
+-                android:id="@+id/listContacts"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.3"
+-                android:background="@android:color/white"
+-                android:scrollbars="vertical" />
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_weight="0.1"
+-                android:orientation="horizontal">
+-
+-                <EditText
+-                    android:id="@+id/inputChat"
+-                    android:layout_width="0dp"
+-                    android:layout_height="match_parent"
+-                    android:layout_marginStart="8dp"
+-                    android:layout_marginTop="8dp"
+-                    android:layout_marginEnd="8dp"
+-                    android:layout_marginBottom="8dp"
+-                    android:layout_weight="0.9"
+-                    android:autofillHints=""
+-                    android:background="@android:color/white"
+-                    android:hint="Type a message"
+-                    android:inputType="textLongMessage|text"
+-                    android:text="" />
+-
+-                <ImageButton
+-                    android:id="@+id/sendChat"
+-                    android:layout_width="0dp"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="0.1"
+-                    android:src="@android:drawable/ic_menu_send"
+-                    android:tint="#FFFFFF"
+-                    app:backgroundTint="@android:color/transparent" />
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-    </LinearLayout>
+-
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/tutorial_peertopeer_send_file.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/tutorial_peertopeer_send_file.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/layout/tutorial_peertopeer_send_file.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,230 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/colorBackground"
+-    tools:context=".TutorialPeertopeerSendFile">
+-
+-    <LinearLayout
+-        android:id="@+id/layoutTop"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:orientation="horizontal"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
+-
+-        <ImageButton
+-            android:id="@+id/buttonBack"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.1"
+-            android:background="@android:color/transparent"
+-            android:contentDescription="Back button"
+-            app:srcCompat="@drawable/abc_vector_test" />
+-
+-        <TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.6"
+-            android:gravity="center"
+-            android:text="1 - 1 Send file"
+-            android:textAlignment="center"
+-            android:textSize="18sp"
+-            android:textStyle="bold" />
+-
+-        <TextView
+-            android:id="@+id/textId"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center_vertical"
+-            android:layout_weight="0.3"
+-            android:text="ID: "
+-            android:textSize="18sp" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:id="@+id/linearLayout"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:layout_margin="0dp"
+-        android:orientation="vertical"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/layoutTop">
+-
+-        <LinearLayout
+-            android:id="@+id/layoutChat"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.76"
+-            android:orientation="vertical">
+-
+-            <ListView
+-                android:id="@+id/listContacts"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.5"
+-                android:background="@android:color/white"
+-                android:scrollbars="vertical" />
+-
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:orientation="horizontal">
+-
+-            <TextView
+-                android:id="@+id/textUploadName"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_gravity="center"
+-                android:layout_margin="4dp"
+-                android:layout_weight="0.6"
+-                android:gravity="center"
+-                android:text="No file selected"
+-                android:textAlignment="center"
+-                android:textSize="12sp" />
+-
+-            <Button
+-                android:id="@+id/buttonBrowseFile"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="0.2"
+-                android:text="Browse"
+-                android:textSize="12sp" />
+-
+-            <Button
+-                android:id="@+id/buttonSendFile"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="0.2"
+-                android:text="Send"
+-                android:textSize="12sp" />
+-
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:orientation="horizontal">
+-
+-            <ProgressBar
+-                android:id="@+id/progressBarUpload"
+-                style="?android:attr/progressBarStyleHorizontal"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_margin="4dp"
+-                android:layout_weight="0.6"
+-                android:progress="0" />
+-
+-            <TextView
+-                android:id="@+id/textStatusSend"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="0.2"
+-                android:text="Status" />
+-
+-            <Button
+-                android:id="@+id/buttonCancelSend"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="0.2"
+-                android:text="Cancel"
+-                android:textSize="12sp" />
+-
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:id="@+id/layoutReceiveFile"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.5"
+-            android:orientation="vertical"
+-            android:visibility="visible">
+-
+-            <LinearLayout
+-                android:id="@+id/layoutAnswerFile"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:visibility="visible">
+-
+-                <TextView
+-                    android:id="@+id/textDownloadName"
+-                    android:layout_width="0dp"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="0.6"
+-                    android:gravity="center"
+-                    android:textSize="12sp" />
+-
+-                <Button
+-                    android:id="@+id/buttonAcceptFile"
+-                    android:layout_width="0dp"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="0.2"
+-                    android:text="ACCEPT"
+-                    android:textSize="12sp" />
+-
+-                <Button
+-                    android:id="@+id/buttonRejectFile"
+-                    android:layout_width="0dp"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="0.2"
+-                    android:text="REJECT"
+-                    android:textSize="12sp" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:id="@+id/layoutDownloadFile"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:visibility="visible">
+-
+-                <TextView
+-                    android:id="@+id/textDownloadName2"
+-                    android:layout_width="0dp"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="0.4"
+-                    android:gravity="center"
+-                    android:textSize="12sp" />
+-
+-                <ProgressBar
+-                    android:id="@+id/progressBarDownload"
+-                    style="?android:attr/progressBarStyleHorizontal"
+-                    android:layout_width="0dp"
+-                    android:layout_height="match_parent"
+-                    android:layout_margin="4dp"
+-                    android:layout_weight="0.4"
+-                    android:progress="0" />
+-
+-                <Button
+-                    android:id="@+id/buttonSaveFile"
+-                    android:layout_width="0dp"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="0.2"
+-                    android:text="Save"
+-                    android:textSize="12sp" />
+-
+-            </LinearLayout>
+-
+-            <ImageView
+-                android:id="@+id/imageView"
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent"
+-                android:padding="4dp"
+-                tools:srcCompat="@tools:sample/avatars" />
+-        </LinearLayout>
+-    </LinearLayout>
+-
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/TutorialConferencingVideo.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/TutorialConferencingVideo.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/TutorialConferencingVideo.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,46 +0,0 @@
+-package com.apizee.webrtc.apiRTC
+-
+-import android.content.Intent
+-import android.os.Bundle
+-import android.widget.EditText
+-import android.widget.Spinner
+-import androidx.appcompat.app.AppCompatActivity
+-import kotlinx.android.synthetic.main.tutorial_conferencing_video.*
+-import kotlin.random.Random
+-
+-
+-class TutorialConferencingVideo : AppCompatActivity() {
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-
+-        setContentView(R.layout.tutorial_conferencing_video)
+-
+-        // Close view when back button pressed
+-        buttonBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        // Choose an easy to remember random room name
+-        val defaultRoom = "conf-" + Random.nextLong(1000, 9999).toString()
+-        textRoom.setText(defaultRoom)
+-
+-        connectButton.setOnClickListener {
+-            val server = findViewById<Spinner>(R.id.spinnerServer).selectedItem.toString()
+-            val room = findViewById<EditText>(R.id.textRoom).text.toString()
+-
+-            startVideoCall(server, room, "b0dfc52e7766516f2efdebeb990d006c")
+-        }
+-    }
+-
+-    private fun startVideoCall(server: String, room: String, apiKey: String) {
+-        val intent = Intent(this, VideoCallActivity::class.java)
+-        intent.putExtra("server", server)
+-        intent.putExtra("room", room)
+-        intent.putExtra("apiKey", apiKey)
+-        startActivity(intent)
+-    }
+-
+-
+-}
+-
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/LobbyActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/LobbyActivity.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/LobbyActivity.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,100 +0,0 @@
+-package com.apizee.webrtc.apiRTC
+-
+-import android.Manifest
+-import android.content.Intent
+-import android.content.pm.PackageManager
+-import android.os.Bundle
+-import android.util.Log
+-import android.widget.Toast
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.core.app.ActivityCompat
+-import androidx.core.content.ContextCompat
+-import es.dmoral.toasty.Toasty
+-import kotlinx.android.synthetic.main.activity_lobby.*
+-
+-
+-class LobbyActivity : AppCompatActivity() {
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-
+-        setContentView(R.layout.activity_lobby)
+-
+-        // Display version of app and SDK
+-        val version = "v${BuildConfig.VERSION_NAME}/${com.apizee.apiRTC.BuildConfig.LIBRARY_PACKAGE_NAME}-${com.apizee.apiRTC.BuildConfig.APIRTC_VERSION_NAME}"
+-        textVersion.text = version
+-
+-        handlePermissions()
+-
+-        buttonStart.setOnClickListener {
+-            val intent = when (spinnerTutorial.selectedItemPosition + 1) {
+-                1 -> Intent(this, TutorialConferencingVideo::class.java)
+-                2 -> Intent(this, TutorialConferencingChat::class.java)
+-                3 -> Intent(this, TutorialPeertopeerChat::class.java)
+-                4 -> Intent(this, TutorialPeertopeerSendData::class.java)
+-                5 -> Intent(this, TutorialPresenceGroupManagement::class.java)
+-                6 -> Intent(this, TutorialUserDataSharing::class.java)
+-                7 -> Intent(this, TutorialPeertopeerSendFile::class.java)
+-                8 -> Intent(this, PeerToPeerCall::class.java)
+-                else -> null
+-            }
+-
+-            if (intent != null)
+-                startActivity(intent)
+-        }
+-    }
+-
+-    private fun handlePermissions() {
+-        val canAccessCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+-        val canRecordAudio = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+-        val canReadFiles = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+-        val canWriteFiles = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+-        if (!canAccessCamera || !canRecordAudio || !canReadFiles || !canWriteFiles) {
+-            // Missing permissions ; request them
+-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSIONS_REQUEST)
+-        }
+-    }
+-
+-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+-        when (requestCode) {
+-            PERMISSIONS_REQUEST -> {
+-                var missing = false
+-                var i = 0
+-                while (i < permissions.size) {
+-                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+-                        Log.d(TAG, "Permission Granted: " + permissions[i])
+-                    } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+-                        Log.e(TAG, "Permission Denied: " + permissions[i])
+-                        missing = true
+-                    }
+-                    i++
+-                }
+-                if (missing) {
+-                    toast(ToastyType.TOASTY_ERROR, "Permission denied. Exiting.")
+-                    finish()
+-                }
+-            }
+-            else -> {
+-                super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+-            }
+-        }
+-    }
+-
+-    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
+-
+-    private fun toast(type: ToastyType, message: String) {
+-        Log.d(TAG, "Toast message: $message")
+-        runOnUiThread {
+-            when (type) {
+-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
+-                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+-                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-
+-    companion object {
+-        private const val TAG = "LobbyActivity"
+-        private const val PERMISSIONS_REQUEST = 1220
+-    }
+-}
+Index: app/src/main/res/layout/peertopeer.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/peertopeer.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/layout/peertopeer.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,54 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".PeerToPeerCall">
+-
+-    <TextView
+-        android:id="@+id/textId"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center"
+-        android:layout_marginTop="128dp"
+-        android:layout_weight="0.3"
+-        android:text="ID: "
+-        android:textAlignment="textEnd"
+-        android:textSize="18sp"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-    <EditText
+-        android:id="@+id/peerId"
+-        android:layout_width="350dp"
+-        android:layout_height="80dp"
+-        android:layout_marginTop="204dp"
+-        android:hint="Peer ID"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-    <Button
+-        android:id="@+id/callPeer"
+-        android:layout_width="50dp"
+-        android:layout_height="50dp"
+-        android:layout_marginStart="348dp"
+-        android:layout_marginTop="224dp"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"
+-        android:padding="8dp"
+-        android:background="@drawable/round_basic_button"
+-        android:src="@drawable/ic_baseline_call_24"/>
+-
+-    <Button
+-        android:id="@+id/redButton"
+-        android:layout_width="50dp"
+-        android:layout_height="50dp"
+-        android:layout_marginStart="291dp"
+-        android:layout_marginTop="52dp"
+-        android:background="@drawable/round_green_button"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/tutorial_conferencing_video.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/tutorial_conferencing_video.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/layout/tutorial_conferencing_video.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,110 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/colorBackground"
+-    tools:context=".TutorialConferencingVideo">
+-
+-    <LinearLayout
+-        android:id="@+id/layoutTop"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:orientation="horizontal"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
+-
+-        <ImageButton
+-            android:id="@+id/buttonBack"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.1"
+-            android:background="@android:color/transparent"
+-            android:contentDescription="Back button"
+-            app:srcCompat="@drawable/abc_vector_test" />
+-
+-        <!--TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.6"
+-            android:gravity="center"
+-            android:text="Video conference"
+-            android:textAlignment="center"
+-            android:textSize="18sp"
+-            android:textStyle="bold"-->
+-
+-        <TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center_vertical"
+-            android:layout_weight="0.3"
+-            android:textAlignment="textEnd"
+-            android:textSize="18sp" />
+-    </LinearLayout>
+-
+-
+-    <Button
+-        android:id="@+id/connectButton"
+-        style="@style/Widget.AppCompat.Button.Colored"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="16dp"
+-        android:background="@color/colorConnected"
+-        android:paddingLeft="12dp"
+-        android:paddingRight="12dp"
+-        android:text="@string/connect_btn"
+-        android:textSize="18sp"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/textRoom"
+-        tools:text="Connect" />
+-
+-    <Spinner
+-        android:id="@+id/spinnerServer"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="32dp"
+-        android:layout_marginTop="16dp"
+-        android:layout_marginEnd="32dp"
+-        android:entries="@array/servers_arrays"
+-        android:prompt="@string/servers_prompt"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/layoutTop"/>
+-
+-    <EditText
+-        android:id="@+id/textRoom"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="32dp"
+-        android:layout_marginLeft="32dp"
+-        android:layout_marginTop="16dp"
+-        android:layout_marginEnd="32dp"
+-        android:layout_marginRight="32dp"
+-        android:ems="10"
+-        android:hint="@string/conference_room"
+-        android:importantForAutofill="no"
+-        android:inputType="textPersonName"
+-        android:text="@string/lobbyRoom"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/spinnerServer" />
+-
+-    <TextView
+-        android:id="@+id/textView"
+-        android:layout_width="0dp"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:layout_marginTop="16dp"
+-        android:layout_marginEnd="16dp"
+-        android:text="@string/lobbyHelp"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/connectButton" />
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPresenceGroupManagement.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPresenceGroupManagement.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPresenceGroupManagement.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,145 +0,0 @@
+-package com.apizee.webrtc.apiRTC
+-
+-import android.os.Bundle
+-import android.util.Log
+-import android.widget.ArrayAdapter
+-import android.widget.Toast
+-import androidx.appcompat.app.AppCompatActivity
+-import com.apizee.apiRTC.Session
+-import com.apizee.apiRTC.UserAgent
+-import es.dmoral.toasty.Toasty
+-import kotlinx.android.synthetic.main.tutorial_presence_group_management.*
+-
+-
+-class TutorialPresenceGroupManagement : AppCompatActivity() {
+-    private var ua: UserAgent? = null
+-    private var cloudUrl = "https://cloud.apizee.com"
+-    private var connectedSession: Session? = null
+-    private var listContactsString = arrayListOf<String>()
+-    private var listContactsAdapter: ArrayAdapter<*>? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.tutorial_presence_group_management)
+-
+-        listContactsAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listContactsString)
+-        listContacts.adapter = listContactsAdapter
+-
+-        // Close view when back button pressed
+-        buttonBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        buttonJoin.setOnClickListener {
+-            val group = inputGroup.text.toString()
+-            if (group != "") {
+-                connectedSession?.joinGroup(group)
+-            }
+-        }
+-        buttonLeave.setOnClickListener {
+-            val group = inputGroup.text.toString()
+-            if (group != "") {
+-                connectedSession?.leaveGroup(group)
+-            }
+-        }
+-        buttonSubscribe.setOnClickListener {
+-            val group = inputGroup.text.toString()
+-            if (group != "") {
+-                connectedSession?.subscribeToGroup(group)
+-            }
+-        }
+-        buttonUnsubscribe.setOnClickListener {
+-            val group = inputGroup.text.toString()
+-            if (group != "") {
+-                connectedSession?.unsubscribeToGroup(group)
+-            }
+-        }
+-
+-        start()
+-    }
+-
+-    private fun start() {
+-        //==============================
+-        // CREATE USER AGENT
+-        //==============================
+-        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:myDemoApiKey")
+-        ua = UserAgent(this, optionsUa)
+-
+-        //==============================
+-        // REGISTER
+-        //==============================
+-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+-        /*
+-// Different cases to test joining groups on register
+-// Case 0: no settings, apiRTC client join and subscribes to group "default"
+-
+-// Case 1 : join and subscribe to group "testGroup"
+-        optionsRegister.groups = arrayListOf("testGroup")
+-        optionsRegister.subscribeTo = arrayListOf("testGroup")
+-
+-// Case 2 : join group "test_pub" and subscribe to group "test_sub"
+-        optionsRegister.groups = arrayListOf("test_pub")
+-        optionsRegister.subscribeTo = arrayListOf("test_sub")
+-
+-// Case 3 : Disable group presence on join and subscribe
+-        optionsRegister.groups = arrayListOf("deactivated")
+-        optionsRegister.subscribeTo = arrayListOf("deactivated")
+-
+-// Case 4: Join and subscribe to multiple groups
+-        optionsRegister.groups = arrayListOf("default", "testGroup")
+-        optionsRegister.subscribeTo = arrayListOf("default", "testGroup")
+-*/
+-
+-        ua?.register(optionsRegister)?.then {
+-            val session = it as Session
+-            Log.d(TAG, "Session successfully connected")
+-            connectedSession = session
+-            connectedSession?.setUsername("guest")
+-
+-            //Listen to contact list updates
+-            connectedSession?.on(Session.EVENT_CONTACT_LIST_UPDATE)
+-            {
+-                renderUserList()
+-            }
+-            runOnUiThread {
+-                textId.text = "ID : ${session.getId()}"
+-            }
+-
+-        }?.catch {
+-            val error = it as String
+-            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+-            finish()
+-        }
+-    }
+-
+-    private fun renderUserList() {
+-        runOnUiThread {
+-            listContactsString.clear()
+-            connectedSession?.getContacts()?.forEach { contact -> listContactsString.add("${contact.getId()} ${contact.getGroups()}") }
+-            listContactsAdapter?.notifyDataSetChanged()
+-        }
+-    }
+-
+-    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
+-
+-    private fun toast(type: ToastyType, message: String) {
+-        Log.d(TAG, "Toast message: $message")
+-        runOnUiThread {
+-            when (type) {
+-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
+-                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+-                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-
+-    override fun onDestroy() {
+-        super.onDestroy()
+-        ua?.unregister()
+-        connectedSession = null
+-    }
+-
+-    companion object {
+-        private const val TAG = "TutorialPresenceGroup"
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/layout/tutorial_presence_group_management.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/tutorial_presence_group_management.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/layout/tutorial_presence_group_management.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,139 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/colorBackground"
+-    tools:context=".TutorialPresenceGroupManagement">
+-
+-    <LinearLayout
+-        android:id="@+id/layoutTop"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:orientation="horizontal"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
+-
+-        <ImageButton
+-            android:id="@+id/buttonBack"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.1"
+-            android:background="@android:color/transparent"
+-            android:contentDescription="Back button"
+-            app:srcCompat="@drawable/abc_vector_test" />
+-
+-        <TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.6"
+-            android:gravity="center"
+-            android:text="Presence group"
+-            android:textAlignment="center"
+-            android:textSize="18sp"
+-            android:textStyle="bold" />
+-
+-        <TextView
+-            android:id="@+id/textId"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center_vertical"
+-            android:layout_weight="0.3"
+-            android:text="ID: "
+-            android:textSize="18sp" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:id="@+id/linearLayout"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:layout_margin="0dp"
+-        android:orientation="vertical"
+-        android:weightSum="1"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/layoutTop">
+-
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.08"
+-            android:orientation="horizontal">
+-
+-            <EditText
+-                android:id="@+id/inputGroup"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_marginStart="8dp"
+-                android:layout_marginTop="8dp"
+-                android:layout_marginEnd="8dp"
+-                android:layout_marginBottom="8dp"
+-                android:layout_weight="0.5"
+-                android:autofillHints=""
+-                android:background="@android:color/white"
+-                android:hint="Group"
+-                android:inputType="textLongMessage|text"
+-                android:text="testGroup" />
+-
+-            <Button
+-                android:id="@+id/buttonJoin"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.25"
+-                android:text="Join"
+-                android:textSize="12sp" />
+-
+-            <Button
+-                android:id="@+id/buttonLeave"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.25"
+-                android:text="Leave"
+-                android:textSize="12sp" />
+-
+-            <Button
+-                android:id="@+id/buttonSubscribe"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.25"
+-                android:text="Subscribe"
+-                android:textSize="12sp" />
+-
+-            <Button
+-                android:id="@+id/buttonUnsubscribe"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.25"
+-                android:text="Unsubscribe"
+-                android:textSize="12sp" />
+-
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:id="@+id/layoutChat"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.92"
+-            android:orientation="vertical">
+-
+-            <ListView
+-                android:id="@+id/listContacts"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.5"
+-                android:background="@android:color/white"
+-                android:scrollbars="vertical" />
+-
+-        </LinearLayout>
+-    </LinearLayout>
+-
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/TutorialConferencingChat.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/TutorialConferencingChat.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/TutorialConferencingChat.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,345 +0,0 @@
+-package com.apizee.webrtc.apiRTC
+-
+-import android.content.Intent
+-import android.graphics.Color
+-import android.graphics.PorterDuff
+-import android.os.Bundle
+-import android.text.Html
+-import android.text.method.LinkMovementMethod
+-import android.util.Log
+-import android.view.KeyEvent
+-import android.view.View
+-import android.widget.ArrayAdapter
+-import android.widget.Toast
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.core.text.HtmlCompat
+-import com.apizee.apiRTC.Contact
+-import com.apizee.apiRTC.Conversation
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_JOINED
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_LEFT
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_NEW_MEDIA_AVAILABLE
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_BEGUN
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_ENDED
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_PROGRESS
+-import com.apizee.apiRTC.Session
+-import com.apizee.apiRTC.UserAgent
+-import com.apizee.webrtc.apiRTC.Utils.Companion.getFileName
+-import com.apizee.webrtc.apiRTC.Utils.Companion.getMimeType
+-import es.dmoral.toasty.Toasty
+-import kotlinx.android.synthetic.main.tutorial_conferencing_chat.*
+-
+-class TutorialConferencingChat : AppCompatActivity() {
+-    private var ua: UserAgent? = null
+-    private var cloudUrl = "https://cloud.apizee.com"
+-    private var connectedSession: Session? = null
+-    private var activeConversation: Conversation? = null
+-    private var activePushDataId: String? = null
+-    private var listContactsString = arrayListOf<String>()
+-    private var listContactsAdapter: ArrayAdapter<*>? = null
+-
+-    private fun showChatBox() {
+-        runOnUiThread {
+-            conversationSelector.visibility = View.GONE
+-            layoutChat.visibility = View.VISIBLE
+-        }
+-    }
+-
+-    private fun setUploadProgress(percentage: Number) {
+-        runOnUiThread {
+-            progressBarUpload.progress = percentage.toInt()
+-        }
+-    }
+-
+-    private fun showUpload(show: Boolean) {
+-        runOnUiThread {
+-            if (show) {
+-                layoutUploadFile.visibility = View.VISIBLE
+-                buttonSendFile.disable()
+-                buttonCancelPush.enable()
+-            } else {
+-                layoutUploadFile.visibility = View.GONE
+-                buttonCancelPush.disable()
+-                buttonSendFile.enable()
+-            }
+-        }
+-    }
+-
+-    //Wrapper to send a message to everyone in the conversation and display sent message in UI
+-    private fun sendMessageToActiveConversation(message: String) {
+-        val conversation = activeConversation
+-        if (message != "" && conversation != null) {
+-            addTextChatMessage("Me", message)
+-
+-            //Actually send message to active contact
+-            conversation.sendMessage(message).then {
+-                //Message successfully sent!
+-            }.catch {
+-                val error = it as String
+-                //An error occured...
+-                val messageLine = "<li><i>Could not send message to conversation '${conversation.getName()}' (reason '$error'): '$message'</i></li><br/>"
+-                addTextChatMessage("System", messageLine, true)
+-            }
+-        }
+-    }
+-
+-    private fun joinConversation(name: String) {
+-        val session = connectedSession
+-
+-        if (name == "" || session == null)
+-            return
+-
+-        activeConversation = session.getOrCreateConversation(name)
+-
+-        //Listen to incoming messages from conversation
+-        activeConversation?.on(Conversation.EVENT_MESSAGE) {
+-            val message = it[0] as Conversation.Message
+-            addTextChatMessage(message.sender.getId(), message.content)
+-        }
+-
+-        //Listen for any participants entering or leaving the conversation
+-        activeConversation?.on(EVENT_CONTACT_JOINED) {
+-            val contact = it[0] as Contact
+-            Log.d(TAG, "Contact that has joined : ${contact.getId()}")
+-            renderUserList()
+-        }
+-
+-        activeConversation?.on(EVENT_CONTACT_LEFT) {
+-            val contact = it[0] as Contact
+-            Log.d(TAG, "Contact that has left : ${contact.getId()}")
+-            renderUserList()
+-        }
+-
+-        activeConversation?.join()
+-                ?.then {
+-                    //Conversation was successfully joined
+-                    runOnUiThread {
+-                        textRoom.text = "Room : ${activeConversation?.getName()}"
+-                    }
+-                    showChatBox()
+-                    renderUserList()
+-                }?.catch {
+-                    val error = it as String
+-                    toast(ToastyType.TOASTY_ERROR, "Conversation join error : '$error'")
+-                }
+-
+-
+-        activeConversation?.on(EVENT_NEW_MEDIA_AVAILABLE)
+-        {
+-            val sender = it[0] as Contact
+-            val cloudMediaInfo = it[1] as Session.CloudMediaInfo
+-            addTextChatMessage(sender.getId(), "<a href=\"${Html.escapeHtml(cloudMediaInfo.url)}\">Received file ${Html.escapeHtml(cloudMediaInfo.id)}</a>", true)
+-            toast(ToastyType.TOASTY_INFO, "New media available from ${sender.getId()} : ${cloudMediaInfo.url}")
+-        }
+-
+-        activeConversation?.on(EVENT_TRANSFER_BEGUN)
+-        {
+-            val event = it[0] as Conversation.Companion.EventTransferBegun
+-            activePushDataId = event.id
+-            addTextChatMessage("System", "Transfer of '${event.name}' with id '${event.id}' begun", false)
+-            showUpload(true)
+-        }
+-
+-        activeConversation?.on(EVENT_TRANSFER_ENDED)
+-        {
+-            val event = it[0] as Conversation.Companion.EventTransferEnded
+-            activePushDataId = null
+-            addTextChatMessage("System", "Transfer of '${event.name}' with id '${event.id}' ended", false)
+-            showUpload(false)
+-        }
+-
+-        activeConversation?.on(EVENT_TRANSFER_PROGRESS)
+-        {
+-            val event = it[0] as Conversation.Companion.EventTransferProgress
+-            setUploadProgress(event.percentage)
+-        }
+-
+-        // Ask focus on text input
+-        runOnUiThread { inputChat.requestFocus() }
+-    }
+-
+-    private fun renderUserList() {
+-        listContactsString.clear()
+-        activeConversation?.getContacts()?.forEach { contact -> listContactsString.add(contact.getId()) }
+-
+-        runOnUiThread {
+-            listContactsAdapter?.notifyDataSetChanged()
+-        }
+-    }
+-
+-    private fun addTextChatMessage(senderId: String, message: String, useHtml: Boolean = false) {
+-        val senderHtml = "<b>${Html.escapeHtml(senderId)}</b> : "
+-        val messageHtml = "$message<br/>"
+-        val messageText = "$message\n"
+-        //Display message in UI
+-        runOnUiThread {
+-            textChat.append(HtmlCompat.fromHtml(senderHtml, HtmlCompat.FROM_HTML_MODE_LEGACY))
+-            if (useHtml)
+-                textChat.append(HtmlCompat.fromHtml(messageHtml, HtmlCompat.FROM_HTML_MODE_LEGACY))
+-            else
+-                textChat.append(messageText)
+-        }
+-    }
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.tutorial_conferencing_chat)
+-
+-        listContactsAdapter = ArrayAdapter<String>(this,
+-                android.R.layout.simple_list_item_1, listContactsString)
+-
+-        listContacts.adapter = listContactsAdapter
+-        textChat.movementMethod = LinkMovementMethod.getInstance()
+-
+-        // Close view when back button pressed
+-        buttonBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        //==============================
+-        // START CHAT
+-        //==============================
+-        buttonConversationSet.setOnClickListener {
+-            // Get contact from it's id
+-            val conversationName = inputConversation.text.toString()
+-            joinConversation(conversationName)
+-        }
+-        // Handle enter key
+-        inputConversation.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+-                val conversationName = inputConversation.text.toString()
+-                joinConversation(conversationName)
+-                return@OnKeyListener true
+-            }
+-            false
+-        })
+-
+-        //==============================
+-        // SEND CHAT MESSAGE TO ACTIVE CONTACT
+-        //==============================
+-        sendChat.setOnClickListener {
+-            sendMessageToActiveConversation(inputChat.text.toString())
+-            inputChat.text.clear()
+-        }
+-        inputChat.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+-                sendMessageToActiveConversation(inputChat.text.toString())
+-                inputChat.text.clear()
+-                return@OnKeyListener true
+-            }
+-            false
+-        })
+-
+-        buttonSendFile.setOnClickListener {
+-            showFileLoadChooser()
+-        }
+-
+-        buttonCancelPush.setOnClickListener {
+-            val pushDataId = activePushDataId
+-            showUpload(false)
+-            if (pushDataId != null) {
+-                activeConversation?.cancelPushData(pushDataId)
+-                addTextChatMessage("System", "Transfer of file with id '$pushDataId' has been aborted. You can resume it by doing it again.", false)
+-                activePushDataId = null
+-            }
+-        }
+-
+-        showUpload(false)
+-
+-        start()
+-    }
+-
+-    private fun start() {
+-        //==============================
+-        // CREATE USER AGENT
+-        //==============================
+-        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:myDemoApiKey")
+-        ua = UserAgent(this, optionsUa)
+-
+-        //==============================
+-        // REGISTER
+-        //==============================
+-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+-        ua?.register(optionsRegister)?.then {
+-            val session = it as Session
+-            Log.d(TAG, "Session successfully connected")
+-            connectedSession = session
+-
+-            runOnUiThread {
+-                textRoom.text = "ID : ${session.getId()}"
+-            }
+-        }?.catch {
+-            val error = it as String
+-            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+-            finish()
+-        }
+-    }
+-
+-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+-        super.onActivityResult(requestCode, resultCode, data)
+-
+-        if (requestCode == FILE_CHOOSER_LOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+-            val uri = data.data ?: return
+-
+-            val filename = getFileName(this, uri) ?: "unknown"
+-            val filetype = getMimeType(this, uri)
+-
+-            val fileContent = contentResolver.openInputStream(uri)?.readBytes()
+-            if (fileContent == null) return
+-
+-            toast(ToastyType.TOASTY_INFO, "Sending file '$filename'")
+-            activeConversation?.pushData(Session.PushDataBufferDescriptor(fileContent, filename, filetype, ttl = 30, overwrite = false))
+-                    ?.then {
+-                        val cloudMediaInfo = it as Session.CloudMediaInfo
+-                        addTextChatMessage("System", "<a href=\"${Html.escapeHtml(cloudMediaInfo.url)}\">Sent file ${Html.escapeHtml(cloudMediaInfo.id)}</a>", true)
+-                        sendMessageToActiveConversation("New file uploaded: <a href=\"${cloudMediaInfo.url}\" target=\"_blank\" <b>OPEN FILE</b></a>")
+-                        toast(ToastyType.TOASTY_SUCCESS, "File upload succeeded")
+-                    }?.catch { error ->
+-                        activePushDataId = null
+-                        showUpload(false)
+-                        toast(ToastyType.TOASTY_ERROR, "File upload failed: $error")
+-                    }
+-        }
+-    }
+-
+-    private fun showFileLoadChooser() {
+-        val intent = Intent()
+-                .setType("*/*")
+-                .setAction(Intent.ACTION_GET_CONTENT)
+-                .addCategory(Intent.CATEGORY_OPENABLE)
+-        startActivityForResult(Intent.createChooser(intent, "Select a file to load"), FILE_CHOOSER_LOAD_REQUEST_CODE)
+-    }
+-
+-    private fun View.disable() {
+-        background.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP)
+-        isClickable = false
+-    }
+-
+-    private fun View.enable() {
+-        background.colorFilter = null
+-        isClickable = true
+-    }
+-
+-    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
+-
+-    private fun toast(type: ToastyType, message: String) {
+-        Log.d(TAG, "Toast message: $message")
+-        runOnUiThread {
+-            when (type) {
+-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
+-                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+-                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-
+-    override fun onDestroy() {
+-        super.onDestroy()
+-        ua?.unregister()
+-        connectedSession = null
+-    }
+-
+-    companion object {
+-        private const val TAG = "TutorialConfChat"
+-        private const val FILE_CHOOSER_LOAD_REQUEST_CODE = 1230
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/layout/tutorial_user_data_sharing.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/tutorial_user_data_sharing.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/layout/tutorial_user_data_sharing.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,115 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/colorBackground"
+-    tools:context=".TutorialUserDataSharing">
+-
+-    <LinearLayout
+-        android:id="@+id/layoutTop"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:orientation="horizontal"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
+-
+-        <ImageButton
+-            android:id="@+id/buttonBack"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.1"
+-            android:background="@android:color/transparent"
+-            android:contentDescription="Back button"
+-            app:srcCompat="@drawable/abc_vector_test" />
+-
+-        <TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:layout_margin="4dp"
+-            android:layout_weight="0.6"
+-            android:gravity="center"
+-            android:text="User data sharing"
+-            android:textAlignment="center"
+-            android:textSize="18sp"
+-            android:textStyle="bold" />
+-
+-        <TextView
+-            android:id="@+id/textId"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center_vertical"
+-            android:layout_weight="0.3"
+-            android:text="ID: "
+-            android:textSize="18sp" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:id="@+id/linearLayout"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:layout_margin="0dp"
+-        android:orientation="vertical"
+-        android:weightSum="1"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/layoutTop">
+-
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.08"
+-            android:orientation="horizontal">
+-
+-            <EditText
+-                android:id="@+id/inputUserData"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_marginStart="8dp"
+-                android:layout_marginTop="8dp"
+-                android:layout_marginEnd="8dp"
+-                android:layout_marginBottom="8dp"
+-                android:layout_weight="0.5"
+-                android:autofillHints=""
+-                android:background="@android:color/white"
+-                android:hint="Group"
+-                android:inputType="textLongMessage|text"
+-                android:text='{myData:"myValue","myData2":100}' />
+-
+-            <Button
+-                android:id="@+id/buttonSetUserData"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.20"
+-                android:text="Set user data"
+-                android:textSize="12sp" />
+-
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:id="@+id/layoutChat"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="0.92"
+-            android:orientation="vertical">
+-
+-            <ListView
+-                android:id="@+id/listContacts"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:layout_margin="8dp"
+-                android:layout_weight="0.5"
+-                android:background="@android:color/white"
+-                android:scrollbars="vertical" />
+-
+-        </LinearLayout>
+-    </LinearLayout>
+-
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/PeerToPeerCall.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/PeerToPeerCall.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/PeerToPeerCall.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,195 +0,0 @@
+-package com.apizee.webrtc.apiRTC
+-
+-import android.Manifest
+-import android.content.Intent
+-import android.content.pm.PackageManager
+-import android.graphics.Color
+-import android.graphics.PorterDuff
+-import android.os.Bundle
+-import android.text.Html
+-import android.text.method.LinkMovementMethod
+-import android.util.Log
+-import android.view.KeyEvent
+-import android.view.View
+-import android.widget.*
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.core.app.ActivityCompat
+-import androidx.core.content.ContextCompat
+-import androidx.core.text.HtmlCompat
+-import com.apizee.apiRTC.Contact
+-import com.apizee.apiRTC.Conversation
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_JOINED
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_LEFT
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_NEW_MEDIA_AVAILABLE
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_BEGUN
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_ENDED
+-import com.apizee.apiRTC.Conversation.Companion.EVENT_TRANSFER_PROGRESS
+-import com.apizee.apiRTC.Session
+-import com.apizee.apiRTC.UserAgent
+-import com.apizee.webrtc.apiRTC.Utils.Companion.getFileName
+-import com.apizee.webrtc.apiRTC.Utils.Companion.getMimeType
+-import es.dmoral.toasty.Toasty
+-import kotlinx.android.synthetic.main.tutorial_conferencing_chat.*
+-import kotlinx.android.synthetic.main.tutorial_conferencing_chat.buttonBack
+-import kotlinx.android.synthetic.main.tutorial_conferencing_chat.textRoom
+-import kotlinx.android.synthetic.main.tutorial_conferencing_video.*
+-import kotlinx.android.synthetic.main.tutorial_peertopeer_chat.*
+-import kotlinx.android.synthetic.main.tutorial_peertopeer_chat.textId
+-import kotlinx.android.synthetic.main.tutorial_peertopeer_send_data.*
+-import kotlin.random.Random
+-
+-class PeerToPeerCall : AppCompatActivity(){
+-    private var ua: UserAgent? = null
+-    private var cloudUrl = "https://cloud.apizee.com"
+-    private var connectedSession: Session? = null
+-    private var activeContact: Contact? = null
+-    private var available: Boolean = true
+-
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-
+-        setContentView(R.layout.peertopeer)
+-
+-        handlePermissions()
+-
+-        // Close view when back button pressed
+-
+-        val callButton = findViewById<Button>(R.id.callPeer)
+-        val peerId = findViewById<EditText>(R.id.peerId)
+-        val bAvailable = findViewById<Button>(R.id.redButton)
+-
+-        bAvailable.setOnClickListener {
+-            available = !(available)
+-            if (available){
+-                bAvailable.setBackgroundResource(R.drawable.round_green_button)
+-                //bAvailable.text = "En ligne"
+-            } else{
+-                bAvailable.setBackgroundResource(R.drawable.round_red_button)
+-                //bAvailable.text = "Ne pas déranger"
+-            }
+-        }
+-
+-        callButton.setOnClickListener{
+-            //Get contact ID
+-            val id = peerId.text.toString()
+-            setActiveContact(id)
+-
+-            //Create & join conference room
+-            val roomId = "conf-" + Random.nextLong(1000, 9999).toString()
+-            startVideoCall("https://cloud.apizee.com", roomId, "b0dfc52e7766516f2efdebeb990d006c")
+-
+-            //Send message to contact with conference room ID
+-            sendMessageToActiveContact(roomId)
+-            }
+-        start()
+-        }
+-
+-        private fun startVideoCall(server: String, room: String, apiKey: String) {
+-            val intent = Intent(this, VideoCallActivity::class.java)
+-            intent.putExtra("server", server)
+-            intent.putExtra("room", room)
+-            intent.putExtra("apiKey", apiKey)
+-            startActivity(intent)
+-        }
+-
+-    private fun start() {
+-        //==============================
+-        // CREATE USER AGENT
+-        //==============================
+-        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:b0dfc52e7766516f2efdebeb990d006c")
+-        ua = UserAgent(this, optionsUa)
+-
+-        //==============================
+-        // REGISTER
+-        //==============================
+-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+-        ua?.register(optionsRegister)?.then {
+-            val session = it as Session
+-            Log.d(TAG, "Session successfully connected")
+-            connectedSession = session
+-
+-            //==============================
+-            // WHEN CHAT MESSAGE IS  RECEIVED
+-            //==============================
+-            //Listen to contact message events globally
+-                connectedSession?.on(Session.EVENT_CONTACT_MESSAGE)
+-                {
+-                    val message = it[0] as Session.Message
+-
+-                    //Save contact to contact list
+-                    val roomId = message.content
+-                    if (available){
+-                    startVideoCall("https://cloud.apizee.com", roomId, "b0dfc52e7766516f2efdebeb990d006c")}
+-                }
+-
+-
+-            runOnUiThread {
+-                // Display user number
+-                textId.text = "ID : ${session.getId()}"
+-            }
+-        }?.catch {
+-            val error = it as String
+-            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+-            finish()
+-        }
+-    }
+-    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
+-
+-    private fun toast(type: ToastyType, message: String) {
+-        Log.d(TAG, "Toast message: $message")
+-        runOnUiThread {
+-            when (type) {
+-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
+-                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+-                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-    companion object {
+-        private const val TAG = "PeerToPeerCall"
+-        private const val PERMISSIONS_REQUEST = 1220
+-    }
+-
+-    private fun setActiveContact(contactId: String) {
+-        //==============================
+-        // GET CONTACT OBJECT
+-        //==============================
+-        val contact = connectedSession?.getOrCreateContact(contactId)
+-        activeContact = contact
+-    }
+-
+-    private fun sendMessageToActiveContact(message: String) {
+-        val contact = activeContact
+-        if (message != "" && contact != null) {
+-            //Actually send message to active contact
+-            contact.sendMessage(message).then {
+-                //Message successfully sent!
+-            }.catch {
+-                //An error occurred...
+-            }
+-        }
+-    }
+-
+-    override fun onDestroy() {
+-        super.onDestroy()
+-        ua?.unregister()
+-        connectedSession = null
+-    }
+-
+-    private fun handlePermissions() {
+-        val canAccessCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+-        val canRecordAudio = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+-        val canReadFiles = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+-        val canWriteFiles = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+-        if (!canAccessCamera || !canRecordAudio || !canReadFiles || !canWriteFiles) {
+-            // Missing permissions ; request them
+-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSIONS_REQUEST
+-            )
+-        }
+-    }
+-
+-
+-        //Contact : on message received, join room
+-
+-    }
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerChat.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerChat.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/TutorialPeertopeerChat.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
+@@ -1,232 +0,0 @@
+- package com.apizee.webrtc.apiRTC
+-
+-import android.os.Bundle
+-import android.text.method.ScrollingMovementMethod
+-import android.util.Log
+-import android.view.KeyEvent
+-import android.view.View
+-import android.widget.ArrayAdapter
+-import android.widget.ListView
+-import android.widget.Toast
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.core.text.HtmlCompat
+-import com.apizee.apiRTC.Contact
+-import com.apizee.apiRTC.Session
+-import com.apizee.apiRTC.UserAgent
+-import es.dmoral.toasty.Toasty
+-import kotlinx.android.synthetic.main.tutorial_peertopeer_chat.*
+-
+-class TutorialPeertopeerChat : AppCompatActivity() {
+-    private var ua: UserAgent? = null
+-    private var cloudUrl = "https://cloud.apizee.com"
+-    private var connectedSession: Session? = null
+-    private var activeContact: Contact? = null
+-    private var activeChats: HashMap<String, String> = HashMap()
+-
+-    private var listContactsString = arrayListOf<String>()
+-    private var listContactsAdapter: ArrayAdapter<*>? = null
+-
+-    private fun showChatBox() {
+-        runOnUiThread {
+-            layoutChat.visibility = View.VISIBLE
+-        }
+-    }
+-
+-    //Wrapper to send a message to a contact and display sent message in UI
+-    private fun sendMessageToActiveContact(message: String) {
+-        val contact = activeContact
+-        if (message != "" && contact != null) {
+-            addTextChatMessage(contact.getId(), "<b>Me</b> : $message<br/>")
+-
+-            //Actually send message to active contact
+-            contact.sendMessage(message).then {
+-                //Message successfully sent!
+-            }.catch {
+-                val error = it as String
+-                //An error occured...
+-                val messageLine = "<li><i>Could not send message to contact '${contact.getId()}' (reason '$error'): '$message'</i></li><br/>"
+-                addTextChatMessage(contact.getId(), messageLine)
+-            }
+-        }
+-    }
+-
+-    //Select active contact for chatbox UI
+-    private fun setActiveContact(contactId: String) {
+-        if (activeContact == null) {
+-            // Show chatbox
+-            showChatBox()
+-        }
+-        //==============================
+-        // GET CONTACT OBJECT
+-        //==============================
+-        val contact = connectedSession?.getOrCreateContact(contactId)
+-        activeContact = contact
+-        //Restore previous chat messsages
+-        if (contact != null) {
+-            runOnUiThread {
+-                textChat.text = activeChats[contact.getId()]?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) }
+-            }
+-        }
+-        // Ask focus on text input
+-        runOnUiThread { inputChat.requestFocus() }
+-    }
+-
+-    //Initialize chat history for contact if needed
+-    private fun addContactToActiveChats(contactId: String) {
+-        if (!activeChats.containsKey(contactId)) {
+-            activeChats[contactId] = ""
+-            listContactsString.add(contactId)
+-            runOnUiThread {
+-                listContactsAdapter?.notifyDataSetChanged()
+-                listContacts.setItemChecked(listContactsString.indexOf(contactId), true)
+-            }
+-        }
+-    }
+-
+-    private fun addTextChatMessage(senderId: String, message: String) {
+-        activeChats[senderId] += message //save message
+-        //Display message in UI
+-        runOnUiThread {
+-            if (activeContact?.getId() == senderId) {
+-                textChat.text = ""
+-                textChat.append(activeChats[senderId]?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) })
+-            }
+-        }
+-    }
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.tutorial_peertopeer_chat)
+-
+-        listContactsAdapter = ArrayAdapter<String>(this,
+-                android.R.layout.simple_list_item_activated_1, listContactsString)
+-
+-        listContacts.choiceMode = ListView.CHOICE_MODE_SINGLE
+-        listContacts.adapter = listContactsAdapter
+-        listContacts.setOnItemClickListener { parent, view, position, id ->
+-            val contactId = listContactsAdapter?.getItem(position).toString()
+-            setActiveContact(contactId)
+-        }
+-
+-        // Allow scrolling
+-        textChat.movementMethod = ScrollingMovementMethod()
+-
+-        // Close view when back button pressed
+-        buttonBack.setOnClickListener {
+-            finish()
+-        }
+-
+-        //==============================
+-        // START CHAT
+-        //==============================
+-        buttonContactAdd.setOnClickListener {
+-            // Get contact from it's id
+-            val contactId = inputContact.text.toString()
+-            if (contactId != "") {
+-                inputContact.text.clear()
+-                addContactToActiveChats(contactId)
+-                setActiveContact(contactId)
+-            }
+-        }
+-        // Handle enter key
+-        inputContact.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+-                // Get contact from it's id
+-                val contactId = inputContact.text.toString()
+-                if (contactId != "") {
+-                    inputContact.text.clear()
+-                    addContactToActiveChats(contactId)
+-                    setActiveContact(contactId)
+-                }
+-                return@OnKeyListener true
+-            }
+-            false
+-        })
+-
+-        //==============================
+-        // SEND CHAT MESSAGE TO ACTIVE CONTACT
+-        //==============================
+-        sendChat.setOnClickListener {
+-            sendMessageToActiveContact(inputChat.text.toString())
+-            inputChat.text.clear()
+-        }
+-        inputChat.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+-                sendMessageToActiveContact(inputChat.text.toString())
+-                inputChat.text.clear()
+-                return@OnKeyListener true
+-            }
+-            false
+-        })
+-
+-        start()
+-    }
+-
+-    private fun start() {
+-        //==============================
+-        // CREATE USER AGENT
+-        //==============================
+-        val optionsUa = UserAgent.UserAgentOptions(uri = "apzkey:myDemoApiKey")
+-        ua = UserAgent(this, optionsUa)
+-
+-        //==============================
+-        // REGISTER
+-        //==============================
+-        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = cloudUrl)
+-        ua?.register(optionsRegister)?.then {
+-            val session = it as Session
+-            Log.d(TAG, "Session successfully connected")
+-            connectedSession = session
+-
+-            //==============================
+-            // WHEN CHAT MESSAGE IS  RECEIVED
+-            //==============================
+-
+-            //Listen to contact message events globally
+-            connectedSession?.on(Session.EVENT_CONTACT_MESSAGE)
+-            {
+-                val message = it[0] as Session.Message
+-
+-                //Save contact to contact list
+-                addContactToActiveChats(message.sender.getId())
+-                if (activeContact == null) {
+-                    setActiveContact(message.sender.getId())
+-                }
+-                val messageLine = "<b>${message.sender.getId()}</b> : ${message.content}<br/>"
+-                addTextChatMessage(message.sender.getId(), messageLine)
+-            }
+-
+-            runOnUiThread {
+-                // Display user number
+-                textId.text = "ID : ${session.getId()}"
+-            }
+-        }?.catch {
+-            val error = it as String
+-            toast(ToastyType.TOASTY_ERROR, "User agent registration failed with '$error'")
+-            finish()
+-        }
+-    }
+-
+-    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }
+-
+-    private fun toast(type: ToastyType, message: String) {
+-        Log.d(TAG, "Toast message: $message")
+-        runOnUiThread {
+-            when (type) {
+-                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_LONG).show()
+-                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+-                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-
+-    override fun onDestroy() {
+-        super.onDestroy()
+-        ua?.unregister()
+-        connectedSession = null
+-    }
+-
+-    companion object {
+-        private const val TAG = "TutorialPeertopeerChat"
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/VideoCallActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.apizee.webrtc.apiRTC\r\n\r\nimport android.Manifest\r\nimport android.content.Context\r\nimport android.content.Intent\r\nimport android.content.pm.PackageManager\r\nimport android.media.AudioManager\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.view.View\r\nimport android.widget.AdapterView\r\nimport android.widget.ArrayAdapter\r\nimport android.widget.Toast\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.core.app.ActivityCompat\r\nimport androidx.core.content.ContextCompat\r\nimport com.apizee.apiRTC.*\r\nimport com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_JOINED\r\nimport com.apizee.apiRTC.Conversation.Companion.EVENT_CONTACT_LEFT\r\nimport com.apizee.apiRTC.Conversation.Companion.EVENT_HANGUP\r\nimport com.apizee.apiRTC.Conversation.Companion.EVENT_MESSAGE\r\nimport com.apizee.apiRTC.Conversation.Companion.EVENT_STREAM_ADDED\r\nimport com.apizee.apiRTC.Conversation.Companion.EVENT_STREAM_LIST_CHANGED\r\nimport com.apizee.apiRTC.Conversation.Companion.EVENT_STREAM_REMOVED\r\nimport com.apizee.apiRTC.Session.Companion.EVENT_ERROR\r\nimport es.dmoral.toasty.Toasty\r\nimport kotlinx.android.synthetic.main.activity_video_call.*\r\nimport org.webrtc.RendererCommon\r\nimport org.webrtc.SurfaceViewRenderer\r\nimport java.util.concurrent.ConcurrentHashMap\r\n\r\n\r\nclass VideoCallActivity : AppCompatActivity() {\r\n    private var localVideoView: SurfaceViewRenderer? = null\r\n    private var audioManager: AudioManager? = null\r\n    private var savedMicrophoneState: Boolean? = null\r\n    private var savedSpeakerphoneState: Boolean? = null\r\n    private var savedAudioMode: Int? = null\r\n\r\n    private var ua: UserAgent? = null\r\n    private var localStream: Stream? = null\r\n\r\n    private var usedSurfaceViewRenderer: ConcurrentHashMap<Stream?, SurfaceViewRenderer?> = ConcurrentHashMap()\r\n    private var freeSurfaceViewRenderer: MutableList<SurfaceViewRenderer> = mutableListOf()\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        handlePermissions()\r\n    }\r\n\r\n    private fun joinConference(server: String, apiKey: String?, name: String) {\r\n        //==============================\r\n        // 1/ CREATE USER AGENT\r\n        //==============================\r\n        val optionsUa = UserAgent.UserAgentOptions(uri = \"apzkey:$apiKey\")\r\n        ua = UserAgent(this, optionsUa)\r\n\r\n        // Init UI, audio and video\r\n        interfaceInit()\r\n        audioInit()\r\n        videoInit()\r\n\r\n        //==============================\r\n        // 2/ REGISTER\r\n        //==============================\r\n        val optionsRegister = UserAgent.RegisterInformation(cloudUrl = server)\r\n        ua?.register(optionsRegister)?.then { itSession ->\r\n            val session = itSession as Session\r\n            Log.d(TAG, \"Session successfully connected\")\r\n            val connectedSession = session\r\n\r\n            connectedSession.on(EVENT_ERROR)\r\n            {\r\n                val message = it[0] as String\r\n                toast(ToastyType.TOASTY_ERROR, \"Received error '$message''\")\r\n                finish()\r\n            }\r\n\r\n            //==============================\r\n            // 3/ CREATE CONVERSATION\r\n            //==============================\r\n            connectedConversation = connectedSession.getOrCreateConversation(name)\r\n\r\n            //==========================================================\r\n            // 4/ ADD EVENT LISTENER : WHEN NEW STREAM IS AVAILABLE IN CONVERSATION\r\n            //==========================================================\r\n            connectedConversation?.on(EVENT_STREAM_LIST_CHANGED)\r\n            {\r\n                val streamInfo: Conversation.StreamInfo = it[0] as Conversation.StreamInfo\r\n                Log.d(TAG, \"streamListChanged : $streamInfo\")\r\n\r\n                if (streamInfo.listEventType == \"added\") {\r\n                    if (streamInfo.isRemote) {\r\n                        connectedConversation?.subscribeToStream(streamInfo.streamId)\r\n                                ?.then {\r\n                                    Log.d(TAG, \"subscribeToStream success\")\r\n                                }\r\n                                ?.catch { itError ->\r\n                                    val error = itError as String\r\n                                    toast(ToastyType.TOASTY_ERROR, \"subscribeToStream error : '$error'\")\r\n                                }\r\n                    }\r\n                }\r\n            }\r\n\r\n\r\n            //=====================================================\r\n            // 4 BIS/ ADD EVENT LISTENER : WHEN STREAM WAS REMOVED FROM THE CONVERSATION\r\n            //=====================================================\r\n            connectedConversation?.on(EVENT_STREAM_ADDED)\r\n            {\r\n                val stream: Stream? = it[0] as Stream?\r\n                Log.d(TAG, \"streamAdded : $stream\")\r\n\r\n                // Allocate a SurfaceViewRenderer\r\n                val videoView = getSurfaceViewRenderer(stream)\r\n                if (videoView != null) {\r\n                    // Attach stream to SurfaceViewRenderer\r\n                    stream?.attachToElement(videoView)\r\n                } else\r\n                    toast(ToastyType.TOASTY_ERROR, \"No more video view available for stream $stream\")\r\n            }\r\n\r\n            connectedConversation?.on(EVENT_STREAM_REMOVED)\r\n            {\r\n                val stream: Stream? = it[0] as Stream?\r\n                Log.d(TAG, \"streamRemoved : $stream\")\r\n\r\n                // Find SurfaceRenderer used by this stream\r\n                val videoView = getSurfaceViewRenderer(stream)\r\n                // Detach stream from SurfaceRenderer\r\n                stream?.detachFromElement(videoView)\r\n                // Mark SurfaceViewRenderer as free to be reused\r\n                putBackSurfaceViewRenderer(stream)\r\n            }\r\n\r\n            connectedConversation?.on(EVENT_HANGUP)\r\n            {\r\n                val event = it[0] as Conversation.EventStreamHangup\r\n                Log.d(TAG, \"Event: $EVENT_HANGUP\")\r\n                runOnUiThread {\r\n                    toast(ToastyType.TOASTY_INFO, \"Call terminated from ${event.from} with reason '${event.reason}'\")\r\n                }\r\n            }\r\n\r\n            //==============================\r\n            // 5/ CREATE LOCAL STREAM\r\n            //==============================\r\n            createStream(switch_audio.isChecked, switch_video.isChecked, (cameraSelector.selectedItem as UserAgent.MediaDeviceList.MediaDevice?)?.id)\r\n\r\n            // Handle received chat messages\r\n            connectedConversation?.on(EVENT_MESSAGE)\r\n            {\r\n                val message = it[0] as Conversation.Message\r\n                ChatActivity.addMessage(message.sender.getId(), message.content)\r\n                toast(ToastyType.TOASTY_INFO, \"Received message from '${message.sender.getId()}': '${message.content}'\")\r\n            }\r\n\r\n            // ====================================\r\n            // Handle contact events\r\n            // ====================================\r\n            connectedConversation?.on(EVENT_CONTACT_JOINED) {\r\n                val contact = it[0] as Contact\r\n                Log.d(TAG, \"Contact that has joined : ${contact.getId()}\")\r\n                val contacts = connectedConversation?.getContacts()\r\n                ChatActivity.setContacts(contacts)\r\n            }\r\n\r\n            connectedConversation?.on(EVENT_CONTACT_LEFT) {\r\n                val contact = it[0] as Contact\r\n                Log.d(TAG, \"Contact that has left : ${contact.getId()}\")\r\n                val contacts = connectedConversation?.getContacts()\r\n                ChatActivity.setContacts(contacts)\r\n                finish()\r\n            }\r\n            if (connectedConversation != null)\r\n                Log.d(TAG, \"Conversation successfully connected\")\r\n        }?.catch {\r\n            val error = it as String\r\n            toast(ToastyType.TOASTY_ERROR, \"User agent registration failed with '$error'\")\r\n            finish()\r\n        }\r\n    }\r\n\r\n    private fun interfaceCameraInit() {\r\n        val cameras = ua?.getUserMediaDevices()?.videoinput\r\n\r\n        Log.d(TAG, \"Available cameras: '$cameras'\")\r\n\r\n        if (cameras != null) {\r\n            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cameras)\r\n            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)\r\n            cameraSelector.adapter = adapter\r\n\r\n            cameraSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {\r\n                override fun onNothingSelected(parent: AdapterView<*>?) {}\r\n\r\n                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {\r\n                    // either one will work as well\r\n                    // val item = parent.getItemAtPosition(position) as String\r\n                    val item = adapter.getItem(position)\r\n                    Log.d(TAG, \"Selected camera '$item' at position $position\")\r\n\r\n                    updateStream(switch_audio.isChecked, switch_video.isChecked, position.toString())\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun interfaceInit() {\r\n        setContentView(R.layout.activity_video_call)\r\n        localVideoView = findViewById(R.id.pip_video)\r\n\r\n        // Static provisioning of all available SurfaceViewRenderers.\r\n        // They could be dynamically created too.\r\n        addBackSurfaceViewRenderer(remote_video1)\r\n        addBackSurfaceViewRenderer(remote_video2)\r\n        addBackSurfaceViewRenderer(remote_video3)\r\n        addBackSurfaceViewRenderer(remote_video4)\r\n        addBackSurfaceViewRenderer(remote_video5)\r\n        addBackSurfaceViewRenderer(remote_video6)\r\n        addBackSurfaceViewRenderer(remote_video7)\r\n        addBackSurfaceViewRenderer(remote_video8)\r\n        addBackSurfaceViewRenderer(remote_video9)\r\n        addBackSurfaceViewRenderer(remote_video10)\r\n        addBackSurfaceViewRenderer(remote_video11)\r\n        addBackSurfaceViewRenderer(remote_video12)\r\n        addBackSurfaceViewRenderer(remote_video13)\r\n        addBackSurfaceViewRenderer(remote_video14)\r\n        addBackSurfaceViewRenderer(remote_video15)\r\n        addBackSurfaceViewRenderer(remote_video16)\r\n\r\n        hangup_button.setOnClickListener {\r\n            finish()\r\n        }\r\n\r\n        // Handle video mute\r\n        switch_video.setOnCheckedChangeListener { _, isChecked ->\r\n            if (isChecked) {\r\n                localStream?.unmuteVideo()\r\n                cameraSelector.visibility = View.VISIBLE\r\n            } else {\r\n                localStream?.muteVideo()\r\n                // Hide camera selector when sending of video is disabled\r\n                cameraSelector.visibility = View.INVISIBLE\r\n            }\r\n        }\r\n\r\n        // Handle audio mute\r\n        switch_audio.setOnCheckedChangeListener { _, isChecked ->\r\n            if (isChecked)\r\n                localStream?.unmuteAudio()\r\n            else\r\n                localStream?.muteAudio()\r\n        }\r\n\r\n        // Handle speaker on/off\r\n        switch_speaker.setOnCheckedChangeListener { _, isChecked ->\r\n            audioManager?.isSpeakerphoneOn = isChecked\r\n        }\r\n\r\n        // Handle chat window\r\n        buttonChat.setOnClickListener {\r\n            val intent = Intent(this, ChatActivity::class.java)\r\n            startActivity(intent)\r\n        }\r\n\r\n        interfaceCameraInit()\r\n    }\r\n\r\n    private fun createStream(audio: Boolean, video: Boolean, videoInputId: String?) {\r\n        val createStreamOptions = UserAgent.CreateStreamOptions()\r\n        createStreamOptions.constraints.audio = audio\r\n        createStreamOptions.constraints.video = video\r\n        createStreamOptions.videoInputId = videoInputId\r\n\r\n        ua?.createStream(createStreamOptions)\r\n                ?.then {\r\n                    val stream = it as Stream\r\n                    Log.d(TAG, \"Create stream OK\")\r\n                    val oldStream = localStream\r\n                    // Remove old stream\r\n                    oldStream?.detachFromElement(localVideoView)\r\n                    oldStream?.release()\r\n                    // Save local stream\r\n                    localStream = stream\r\n                    // Attach stream\r\n                    stream.attachToElement(localVideoView)\r\n\r\n                    connectedConversation?.replacePublishedStream(localStream, oldStream)\r\n\r\n                    //==============================\r\n                    // 6/ JOIN CONVERSATION\r\n                    //==============================\r\n                    connectedConversation?.join()\r\n                            ?.then {\r\n                                //==============================\r\n                                // 7/ PUBLISH OWN STREAM\r\n                                //==============================\r\n                                connectedConversation?.publish(localStream)\r\n                                Log.d(TAG, \"Published local stream\")\r\n                            }?.catch { itError ->\r\n                                val error = itError as String\r\n                                toast(ToastyType.TOASTY_ERROR, \"Conversation join error : '$error'\")\r\n\r\n                            }\r\n                    true\r\n                }?.catch {\r\n                    toast(ToastyType.TOASTY_ERROR, \"Create stream failed\")\r\n                }\r\n    }\r\n\r\n    private fun updateStream(audio: Boolean, video: Boolean, videoInputId: String?) {\r\n        val createStreamOptions = UserAgent.CreateStreamOptions()\r\n        createStreamOptions.constraints.audio = audio\r\n        createStreamOptions.constraints.video = video\r\n        createStreamOptions.videoInputId = videoInputId\r\n\r\n        if (connectedConversation == null)\r\n            return\r\n\r\n        ua?.createStream(createStreamOptions)\r\n                ?.then {\r\n                    val stream = it as Stream\r\n                    Log.d(TAG, \"Create stream OK\")\r\n                    val oldStream = localStream\r\n                    // Save local stream\r\n                    localStream = stream\r\n\r\n                    if (oldStream !== null) {\r\n                        // Remove old stream\r\n                        oldStream.detachFromElement(localVideoView)\r\n                        oldStream.release()\r\n\r\n                        val call = connectedConversation?.getConversationCall(oldStream)\r\n                        call?.replacePublishedStream(localStream)\r\n                    }\r\n\r\n                    // Attach stream\r\n                    stream.attachToElement(localVideoView)\r\n                }\r\n                ?.catch {\r\n                    toast(ToastyType.TOASTY_ERROR, \"Create stream failed\")\r\n                }\r\n    }\r\n\r\n    private fun audioInit() {\r\n        audioManager = this.getSystemService(Context.AUDIO_SERVICE) as AudioManager?\r\n        savedAudioMode = audioManager?.mode\r\n        audioManager?.mode = AudioManager.MODE_IN_COMMUNICATION\r\n\r\n        savedMicrophoneState = audioManager?.isMicrophoneMute\r\n        savedSpeakerphoneState = audioManager?.isSpeakerphoneOn\r\n\r\n        audioManager?.isMicrophoneMute = false\r\n        audioManager?.isSpeakerphoneOn = true\r\n    }\r\n\r\n    private fun audioTerminate() {\r\n        if (savedAudioMode !== null) {\r\n            audioManager?.mode = savedAudioMode!!\r\n        }\r\n        if (savedMicrophoneState != null) {\r\n            audioManager?.isMicrophoneMute = savedMicrophoneState!!\r\n        }\r\n        if (savedSpeakerphoneState != null) {\r\n            audioManager?.isSpeakerphoneOn = savedSpeakerphoneState!!\r\n        }\r\n    }\r\n\r\n    private fun videoInit() {\r\n        localVideoView?.init(UserAgent.getEglBaseContext(), null)\r\n        localVideoView?.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT)\r\n        localVideoView?.setZOrderMediaOverlay(true)\r\n        localVideoView?.setEnableHardwareScaler(true)\r\n        localVideoView?.setMirror(false)\r\n    }\r\n\r\n    private enum class ToastyType { TOASTY_ERROR, TOASTY_SUCCESS, TOASTY_INFO }\r\n\r\n    private fun toast(type: ToastyType, message: String) {\r\n        Log.d(TAG, \"Toast message: $message\")\r\n        runOnUiThread {\r\n            when (type) {\r\n                ToastyType.TOASTY_ERROR -> Toasty.error(this, message, Toast.LENGTH_SHORT).show()\r\n                ToastyType.TOASTY_SUCCESS -> Toasty.success(this, message, Toast.LENGTH_SHORT).show()\r\n                ToastyType.TOASTY_INFO -> Toasty.info(this, message, Toast.LENGTH_SHORT).show()\r\n            }\r\n        }\r\n    }\r\n\r\n    override fun onDestroy() {\r\n        toast(ToastyType.TOASTY_INFO, \"Call terminated\")\r\n\r\n        localStream?.release()\r\n\r\n        ua?.unregister()\r\n        localVideoView?.release()\r\n\r\n        for ((stream, _) in usedSurfaceViewRenderer) {\r\n            putBackSurfaceViewRenderer(stream)\r\n        }\r\n\r\n        audioTerminate()\r\n\r\n        connectedConversation = null\r\n\r\n        super.onDestroy()\r\n    }\r\n\r\n    override fun onStop() {\r\n        Log.d(TAG, \"onStop()\")\r\n        super.onStop()\r\n    }\r\n\r\n    private fun joinConference() {\r\n        val server = intent.getStringExtra(\"server\")\r\n        val room = intent.getStringExtra(\"room\")\r\n        val apiKey = intent.getStringExtra(\"apiKey\")\r\n\r\n        if (room == null) {\r\n            toast(ToastyType.TOASTY_ERROR, \"Invalid room\")\r\n            return\r\n        }\r\n        if (server == null) {\r\n            toast(ToastyType.TOASTY_ERROR, \"Invalid server\")\r\n            return\r\n        }\r\n        if (apiKey == null) {\r\n            toast(ToastyType.TOASTY_ERROR, \"Invalid apiKey\")\r\n            return\r\n        }\r\n\r\n        toast(ToastyType.TOASTY_INFO, \"Starting call to '$room'\")\r\n\r\n        joinConference(server, apiKey, room)\r\n    }\r\n\r\n    private fun getSurfaceViewRenderer(stream: Stream?): SurfaceViewRenderer? {\r\n        if (stream == null)\r\n            return null\r\n\r\n        var surfaceViewRenderer = usedSurfaceViewRenderer[stream]\r\n\r\n        // Found already allocated surfaceViewRenderer for this stream. Reuse it.\r\n        if (surfaceViewRenderer != null)\r\n            return surfaceViewRenderer\r\n\r\n        if (freeSurfaceViewRenderer.isNotEmpty()) {\r\n            surfaceViewRenderer = freeSurfaceViewRenderer[0]\r\n        }\r\n\r\n        // Oops, no more surfaceViewRenderer\r\n        if (surfaceViewRenderer == null)\r\n            return null\r\n\r\n        Log.d(TAG, \"Allocate surfaceViewRenderer: $surfaceViewRenderer\")\r\n\r\n        freeSurfaceViewRenderer.remove(surfaceViewRenderer)\r\n        usedSurfaceViewRenderer[stream] = surfaceViewRenderer\r\n\r\n\r\n        runOnUiThread {\r\n            surfaceViewRenderer.visibility = View.VISIBLE\r\n            surfaceViewRenderer.init(UserAgent.getEglBaseContext(), null)\r\n            // TODO: Activate hardware scaler?\r\n            surfaceViewRenderer.setEnableHardwareScaler(true)\r\n\r\n            surfaceViewRenderer.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT)\r\n        }\r\n\r\n        return surfaceViewRenderer\r\n    }\r\n\r\n    private fun putBackSurfaceViewRenderer(stream: Stream?) {\r\n        val surfaceViewRenderer = usedSurfaceViewRenderer.remove(stream)\r\n        if (surfaceViewRenderer != null) {\r\n            Log.d(TAG, \"putBackSurfaceViewRenderer: $surfaceViewRenderer\")\r\n            freeSurfaceViewRenderer.add(0, surfaceViewRenderer)\r\n            runOnUiThread {\r\n                surfaceViewRenderer.release()\r\n                surfaceViewRenderer.visibility = View.GONE\r\n            }\r\n        } else {\r\n            Log.w(TAG, \"putBackSurfaceViewRenderer: Stream $stream not found\")\r\n        }\r\n    }\r\n\r\n    private fun addBackSurfaceViewRenderer(surfaceViewRenderer: SurfaceViewRenderer) {\r\n        freeSurfaceViewRenderer.add(surfaceViewRenderer)\r\n        runOnUiThread {\r\n            surfaceViewRenderer.visibility = View.GONE\r\n        }\r\n    }\r\n\r\n    private fun handlePermissions() {\r\n        val canAccessCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED\r\n        val canRecordAudio = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED\r\n        if (!canAccessCamera || !canRecordAudio) {\r\n            // Missing permissions ; request them\r\n            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO), CAMERA_AUDIO_PERMISSION_REQUEST)\r\n        } else {\r\n            // Permissions OK ; join conference\r\n            joinConference()\r\n        }\r\n    }\r\n\r\n    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {\r\n        Log.w(TAG, \"onRequestPermissionsResult: $requestCode $permissions $grantResults\")\r\n        when (requestCode) {\r\n            CAMERA_AUDIO_PERMISSION_REQUEST -> {\r\n                if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {\r\n                    // Permissions OK ; join conference\r\n                    toast(ToastyType.TOASTY_SUCCESS, \"Camera permission granted\")\r\n                    joinConference()\r\n                } else {\r\n                    // Permissions refused ; terminate call\r\n                    toast(ToastyType.TOASTY_ERROR, \"Camera permission denied\")\r\n                    finish()\r\n                }\r\n                return\r\n            }\r\n        }\r\n    }\r\n\r\n    companion object {\r\n        private const val CAMERA_AUDIO_PERMISSION_REQUEST = 1\r\n        private const val TAG = \"VideoCallActivity\"\r\n\r\n        private var connectedConversation: Conversation? = null\r\n\r\n        fun sendMessage(source: String, message: String) {\r\n            if (connectedConversation != null) {\r\n                // Send message to network\r\n                connectedConversation?.sendMessage(message)\r\n                // Display message locally\r\n                ChatActivity.addMessage(source, message)\r\n            } else {\r\n                // Display error message locally\r\n                ChatActivity.addMessage(\"*System*\", \"Can't send message, no active conversation.\")\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/VideoCallActivity.kt	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/VideoCallActivity.kt	(date 1626859242397)
+@@ -464,7 +464,7 @@
+             surfaceViewRenderer.visibility = View.VISIBLE
+             surfaceViewRenderer.init(UserAgent.getEglBaseContext(), null)
+             // TODO: Activate hardware scaler?
+-            surfaceViewRenderer.setEnableHardwareScaler(true)
++            //surfaceViewRenderer.setEnableHardwareScaler(true)
+ 
+             surfaceViewRenderer.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT)
+         }
+Index: app/src/main/res/layout-port/activity_profile.xml
+===================================================================
+--- app/src/main/res/layout-port/activity_profile.xml	(date 1626944131874)
++++ app/src/main/res/layout-port/activity_profile.xml	(date 1626944131874)
+@@ -0,0 +1,71 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    android:padding="20dp"
++    tools:context=".ProfileActivity">
++
++    <!--android:src="@drawable/ic_baseline_call_24"
++        android:background="@drawable/round_basic_button"-->
++
++
++    <TextView
++        android:id="@+id/emailTv"
++        style="@style/TextAppearance.MaterialComponents.Body1"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="48dp"
++        android:layout_marginTop="48dp"
++        android:text="Email"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/redButton"
++        android:layout_width="160dp"
++        android:layout_height="160dp"
++        android:layout_marginStart="196dp"
++        android:layout_marginTop="40dp"
++        android:background="@drawable/round_green_button"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/callPeer"
++        android:layout_width="220dp"
++        android:layout_height="60dp"
++        android:layout_marginStart="84dp"
++        android:layout_marginTop="368dp"
++        android:backgroundTint="@color/teal_200"
++        android:padding="8dp"
++        android:text="Appeler"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/peerId"
++        android:layout_width="360dp"
++        android:layout_height="75dp"
++        android:layout_gravity="center"
++        android:layout_marginStart="24dp"
++        android:layout_marginTop="276dp"
++        android:hint="Adresse mail de votre contact"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/logoutBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="28dp"
++        android:layout_marginTop="600dp"
++        android:text="Déconnexion"
++        app:backgroundTint="@color/lightGray"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout-land/activity_profile.xml
+===================================================================
+--- app/src/main/res/layout-land/activity_profile.xml	(date 1626943974947)
++++ app/src/main/res/layout-land/activity_profile.xml	(date 1626943974947)
+@@ -0,0 +1,71 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    android:padding="20dp"
++    tools:context=".ProfileActivity">
++
++    <!--android:src="@drawable/ic_baseline_call_24"
++        android:background="@drawable/round_basic_button"-->
++
++
++    <TextView
++        android:id="@+id/emailTv"
++        style="@style/TextAppearance.MaterialComponents.Body1"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="52dp"
++        android:layout_marginTop="28dp"
++        android:text="Email"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/redButton"
++        android:layout_width="150dp"
++        android:layout_height="150dp"
++        android:layout_marginStart="532dp"
++        android:layout_marginTop="16dp"
++        android:background="@drawable/round_green_button"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/callPeer"
++        android:layout_width="264dp"
++        android:layout_height="100dp"
++        android:layout_marginStart="232dp"
++        android:layout_marginTop="228dp"
++        android:backgroundTint="@color/teal_200"
++        android:padding="8dp"
++        android:text="Appeler"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/peerId"
++        android:layout_width="400dp"
++        android:layout_height="120dp"
++        android:layout_gravity="center"
++        android:layout_marginStart="172dp"
++        android:layout_marginTop="104dp"
++        android:hint="Adresse mail de votre contact"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/logoutBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="308dp"
++        android:text="Déconnexion"
++        app:backgroundTint="@color/lightGray"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Hello-Visio</string>\r\n    <string name=\"connect_btn\">Connect</string>\r\n    <string name=\"hangup_button\">Hangup button</string>\r\n\r\n    <string name=\"logo\">Logo</string>\r\n    <string name=\"mute_microphone\">Mute microphone</string>\r\n    <string name=\"no_account\">Vous n\\'avez pas de compte ?<b> Inscrivez-vous</b></string>\r\n    <string name=\"servers_prompt\">Choose a server</string>\r\n    <string-array name=\"servers_arrays\">\r\n        <item>https://cloud.apizee.com</item>\r\n    </string-array>\r\n    <string name=\"tutorials_prompt\">DefaultRoom</string>\r\n    <string-array name=\"tutorials_arrays\">\r\n        <item>Tuto 1 - Video conference</item>\r\n        <item>Tuto 2 - Group Chat and transfer</item>\r\n        <item>Tuto 3 - Peer to peer chat</item>\r\n        <item>Tuto 4 - Peer to peer send data</item>\r\n        <item>Tuto 5 - Presence group management</item>\r\n        <item>Tuto 6 - User data sharing</item>\r\n        <item>Tuto 7 - Peer to peer send file</item>\r\n        <item>Peer to peer call</item>\r\n    </string-array>\r\n\r\n    <string name=\"lobbyHelp\">The other party can open this same application with the same room.</string>\r\n    <string name=\"conference_room\">Conference room</string>\r\n    <string name=\"lobbyRoom\">DefaultRoom</string>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/values/strings.xml	(date 1626861223681)
+@@ -1,5 +1,5 @@
+ <resources>
+-    <string name="app_name">Hello-Visio</string>
++    <string name="app_name">Hello Visio</string>
+     <string name="connect_btn">Connect</string>
+     <string name="hangup_button">Hangup button</string>
+ 
+Index: app/src/main/res/layout-sw600dp/activity_profile.xml
+===================================================================
+--- app/src/main/res/layout-sw600dp/activity_profile.xml	(date 1626943974955)
++++ app/src/main/res/layout-sw600dp/activity_profile.xml	(date 1626943974955)
+@@ -0,0 +1,71 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    android:padding="20dp"
++    tools:context=".ProfileActivity">
++
++    <!--android:src="@drawable/ic_baseline_call_24"
++        android:background="@drawable/round_basic_button"-->
++
++
++    <TextView
++        android:id="@+id/emailTv"
++        style="@style/TextAppearance.MaterialComponents.Body1"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="92dp"
++        android:layout_marginTop="64dp"
++        android:text="Email"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/redButton"
++        android:layout_width="220dp"
++        android:layout_height="220dp"
++        android:layout_marginStart="676dp"
++        android:layout_marginTop="4dp"
++        android:background="@drawable/round_green_button"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/callPeer"
++        android:layout_width="264dp"
++        android:layout_height="100dp"
++        android:layout_marginStart="348dp"
++        android:layout_marginTop="284dp"
++        android:backgroundTint="@color/teal_200"
++        android:padding="8dp"
++        android:text="Appeler"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/peerId"
++        android:layout_width="400dp"
++        android:layout_height="120dp"
++        android:layout_gravity="center"
++        android:layout_marginStart="280dp"
++        android:layout_marginTop="144dp"
++        android:hint="Adresse mail de votre contact"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/logoutBtn"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="44dp"
++        android:layout_marginTop="404dp"
++        android:text="Déconnexion"
++        app:backgroundTint="@color/lightGray"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"colorPrimary\">#3F51B5</color>\r\n    <color name=\"colorPrimaryDark\">#303F9F</color>\r\n    <color name=\"colorAccent\">#FF2D00</color>\r\n    <color name=\"colorConnected\">#40b633</color>\r\n    <color name=\"green\">#00ff00</color>\r\n    <color name=\"colorBackground\">#f0f0f0</color>\r\n    <color name=\"teal_200\">#FF03DAC5</color>\r\n    <color name=\"darkGray\">#696969</color>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision 27c3b41da69dc1222e75a1c4f0418306725fd805)
++++ app/src/main/res/values/colors.xml	(date 1626943349675)
+@@ -8,4 +8,5 @@
+     <color name="colorBackground">#f0f0f0</color>
+     <color name="teal_200">#FF03DAC5</color>
+     <color name="darkGray">#696969</color>
++    <color name="lightGray">#d3d3d3</color>
+ </resources>

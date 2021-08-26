@@ -1,0 +1,18 @@
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"colorPrimary\">#3F51B5</color>\r\n    <color name=\"colorPrimaryDark\">#303F9F</color>\r\n    <color name=\"colorAccent\">#FF2D00</color>\r\n    <color name=\"colorConnected\">#40b633</color>\r\n    <color name=\"colorBackground\">#f0f0f0</color>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision 28d923cd5dbfd337497ce649ffd1481ea837529f)
++++ app/src/main/res/values/colors.xml	(date 1629450558852)
+@@ -4,5 +4,8 @@
+     <color name="colorPrimaryDark">#303F9F</color>
+     <color name="colorAccent">#FF2D00</color>
+     <color name="colorConnected">#40b633</color>
++    <color name="green">#00ff00</color>
+     <color name="colorBackground">#f0f0f0</color>
++    <color name="teal_200">#FF03DAC5</color>
++    <color name="darkGray">#696969</color>
+ </resources>

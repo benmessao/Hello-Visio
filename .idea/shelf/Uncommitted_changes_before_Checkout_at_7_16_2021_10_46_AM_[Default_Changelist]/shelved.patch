@@ -1,0 +1,523 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.apizee.webrtc.apiRTC\">\r\n\r\n    <permission android:name=\"android.permission.INTERNET\" />\r\n    <permission android:name=\"android.permission.CAMERA\" />\r\n    <permission android:name=\"android.permission.RECORD_AUDIO\" />\r\n    <permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />\r\n    <permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.CAMERA\" />\r\n    <uses-permission android:name=\"android.permission.RECORD_AUDIO\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n\r\n    <uses-feature android:name=\"android.hardware.camera\" />\r\n    <uses-feature\r\n        android:glEsVersion=\"0x00020000\"\r\n        android:required=\"true\" />\r\n\r\n    <application\r\n        android:allowBackup=\"false\"\r\n        android:icon=\"@mipmap/ic_launcher_apirtc\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_apirtc_round\"\r\n        android:supportsRtl=\"false\"\r\n        android:theme=\"@style/AppTheme\">\r\n        <activity\r\n            android:name=\".TutorialPeertopeerChat\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity\r\n            android:name=\".TutorialPeertopeerSendData\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity\r\n            android:name=\".TutorialConferencingChat\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity\r\n            android:name=\".TutorialPresenceGroupManagement\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <!--activity\r\n            android:name=\".TutorialConferencingVideo\"\r\n            android:windowSoftInputMode=\"adjustPan\"-->\r\n        <activity\r\n            android:name=\".TutorialUserDataSharing\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity\r\n            android:name=\".ChatActivity\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n        <activity\r\n            android:name=\".TutorialPeertopeerSendFile\"\r\n            android:windowSoftInputMode=\"adjustPan\" />\r\n        <activity android:name=\".Login\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".VideoCallActivity\"\r\n            android:configChanges=\"orientation|screenSize|keyboardHidden\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 05552ac8ed649a22c8d1e09c7d8df2a30dc7d5e1)
++++ app/src/main/AndroidManifest.xml	(date 1626423620313)
+@@ -54,7 +54,7 @@
+         <activity
+             android:name=".TutorialPeertopeerSendFile"
+             android:windowSoftInputMode="adjustPan" />
+-        <activity android:name=".Login">
++        <activity android:name=".PeerToPeerCall">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+Index: app/src/main/res/layout/activity_sign_up.xml
+===================================================================
+--- app/src/main/res/layout/activity_sign_up.xml	(date 1624869016800)
++++ app/src/main/res/layout/activity_sign_up.xml	(date 1624869016800)
+@@ -0,0 +1,67 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:padding="20dp"
++    tools:context=".SignUpActivity">
++    <TextView
++        android:id="@+id/titleLabelTv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_centerHorizontal="true"
++        android:text="Sign Up"
++        android:padding="30dp"
++        android:textSize="30dp"
++        style="@style/TextAppearance.AppCompat.Headline"/>
++
++
++    <!-- name-->
++
++
++
++
++    <!--Email-->
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/emailTil"
++        android:layout_above="@id/passwordTil"
++        android:layout_marginBottom="10dp"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content">
++        <EditText
++            android:id="@+id/emailEt"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Email"
++            android:inputType="textEmailAddress"/>
++
++
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <!--Password-->
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/passwordTil"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_centerInParent="true"
++        app:passwordToggleEnabled="true">
++        <EditText
++            android:id="@+id/passwordEt"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:inputType="textPassword"
++            android:hint="Enter your password..."/>
++    </com.google.android.material.textfield.TextInputLayout>
++    <!--Login button-->
++    <Button
++        android:id="@+id/signUpBtn"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="Sign Up"
++        app:backgroundTint="@color/teal_200"
++        android:layout_below="@id/passwordTil"
++        android:layout_marginTop="10dp"/>
++
++
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_login.xml
+===================================================================
+--- app/src/main/res/layout/activity_login.xml	(date 1624869016800)
++++ app/src/main/res/layout/activity_login.xml	(date 1624869016800)
+@@ -0,0 +1,72 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:padding="20dp"
++    tools:context=".LoginActivity">
++
++    <TextView
++        android:id="@+id/titleLabelTv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_centerHorizontal="true"
++        android:padding="30dp"
++        android:textSize="40dp"
++        android:text="Login"
++        style="@style/TextAppearance.AppCompat.Headline"/>
++
++    <!--Email-->
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/emailTil"
++        android:layout_above="@id/passwordTil"
++        android:layout_marginBottom="10dp"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content">
++        <EditText
++            android:id="@+id/emailEt"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Email"
++            android:inputType="textEmailAddress"/>
++
++
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <!--Password-->
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/passwordTil"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_centerInParent="true"
++        app:passwordToggleEnabled="true">
++        <EditText
++            android:id="@+id/passwordEt"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:inputType="textPassword"
++            android:hint="Enter your password..."/>
++    </com.google.android.material.textfield.TextInputLayout>
++    <!--Login button-->
++    <Button
++        android:id="@+id/loginBtn"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="Login"
++        app:backgroundTint="@color/teal_200"
++        android:layout_below="@id/passwordTil"
++        android:layout_marginTop="10dp"/>
++    <!--Don't have an account ? Sign up-->
++    <TextView
++        android:id="@+id/noAccountTv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="@string/no_account"
++        android:layout_alignParentBottom="true"
++        android:padding="15dp"
++        android:layout_centerHorizontal="true"
++        style="@style/TextAppearance.AppCompat.Caption"/>
++
++
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_profile.xml
+===================================================================
+--- app/src/main/res/layout/activity_profile.xml	(date 1624869016800)
++++ app/src/main/res/layout/activity_profile.xml	(date 1624869016800)
+@@ -0,0 +1,40 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    android:padding="20dp"
++    android:gravity="center"
++    tools:context=".ProfileActivity">
++
++    <TextView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="My profile"
++        android:padding="30dp"
++        android:textSize="30dp"
++        style="@style/TextAppearance.AppCompat.Headline"/>
++
++    <TextView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="You're logged-In as"
++        style="@style/TextAppearance.MaterialComponents.Caption"/>
++    <TextView
++        android:id="@+id/emailTv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Email"
++        style="@style/TextAppearance.MaterialComponents.Body1"/>
++    <Button
++        android:id="@+id/logoutBtn"
++        android:layout_marginTop="20dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        app:backgroundTint="@color/teal_200"
++        android:text="Logout"/>
++
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/ProfileActivity.kt
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/ProfileActivity.kt	(date 1626423844670)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/ProfileActivity.kt	(date 1626423844670)
+@@ -0,0 +1,54 @@
++package com.apizee.webrtc.apiRTC
++
++import android.content.Intent
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import androidx.appcompat.app.ActionBar
++import com.example.authetification.databinding.ActivityProfileBinding
++import com.google.firebase.auth.FirebaseAuth
++
++class ProfileActivity : AppCompatActivity() {
++    //ViewBinding
++    private lateinit var binding: ActivityProfileBinding
++    //ActionBar
++    private lateinit var actionBar: ActionBar
++    //FirebaseAuth
++    private lateinit var firebaseAuth: FirebaseAuth
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        binding = ActivityProfileBinding.inflate(layoutInflater)
++        setContentView(binding.root)
++
++        //configure action bar
++        actionBar = supportActionBar!!
++        actionBar.title = "Profile"
++
++        //init firebase auth
++        firebaseAuth = FirebaseAuth.getInstance()
++        checkUser()
++
++        //handle click, logout
++        binding.logoutBtn.setOnClickListener {
++            firebaseAuth.signOut()
++            checkUser()
++        }
++    }
++
++    private fun checkUser() {
++        //check user is logged in or not
++        val firebaseUser = firebaseAuth.currentUser
++        if (firebaseUser != null ){
++            //user is logged in, get user info
++            val email = firebaseUser.email
++            //set to text view
++            binding.emailTv.text = email
++
++        }
++        else{
++            //user is not logged in go tologin page
++            startActivity(Intent(this, LoginActivity::class.java))
++            finish()
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/SignUpActivity.kt
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/SignUpActivity.kt	(date 1626423844704)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/SignUpActivity.kt	(date 1626423844704)
+@@ -0,0 +1,115 @@
++package com.apizee.webrtc.apiRTC
++
++import android.app.ProgressDialog
++import android.content.Intent
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import android.text.TextUtils
++import android.util.Patterns
++import android.widget.Toast
++import androidx.appcompat.app.ActionBar
++import com.example.authetification.databinding.ActivitySignUpBinding
++import com.google.firebase.auth.FirebaseAuth
++
++class SignUpActivity : AppCompatActivity() {
++    //ViewBinding
++    private lateinit var binding: ActivitySignUpBinding
++    //ActionBar
++    private lateinit var actionBar: ActionBar
++    //ProgressDialog
++    private lateinit var progressDialog: ProgressDialog
++    //FirebaseAuth
++    private lateinit var firebaseAuth: FirebaseAuth
++    private var email = ""
++    private var password = ""
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        binding = ActivitySignUpBinding.inflate(layoutInflater)
++        setContentView(binding.root)
++
++        //Configure Actionbar, //enable back button
++        actionBar = supportActionBar!!
++        actionBar.title = "Sign Up"
++        actionBar.setDisplayHomeAsUpEnabled(true)
++        actionBar.setDisplayShowHomeEnabled(true)
++
++        //configure progress dialog
++        progressDialog = ProgressDialog(this)
++        progressDialog.setTitle("Please wait")
++        progressDialog.setMessage("Creating account ...")
++        progressDialog.setCanceledOnTouchOutside(false)
++
++        //init firebase auth
++        firebaseAuth = FirebaseAuth.getInstance()
++
++        //handle click, begin signup
++        binding.signUpBtn.setOnClickListener {
++            //validate data
++            validateData()
++        }
++
++
++
++    }
++
++    private fun validateData() {
++        //get data
++        email = binding.emailEt.text.toString().trim()
++        password = binding.passwordEt.text.toString().trim()
++
++        //validate data
++        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
++            //invalid email format
++            binding.emailEt.error = "Invalid email format"
++        }
++        else if (TextUtils.isEmpty(password)){
++            //password isn't entered
++            binding.passwordEt.error = "Please enter password"
++        }
++        else if (password.length <6){
++            //password length is less than 6
++            binding.passwordEt.error = "Password must at least be 6 characters long"
++        }
++
++        else{
++            //data is valid, continue sign up
++            firebaseSignUp()
++        }
++
++
++    }
++
++    private fun firebaseSignUp() {
++        //show progress
++        progressDialog.show()
++
++        //create account
++        firebaseAuth.createUserWithEmailAndPassword(email, password)
++            .addOnSuccessListener {
++                //sign up successful
++                progressDialog.dismiss()
++                //get current user
++                val firebaseUser = firebaseAuth.currentUser
++                val email = firebaseUser!!.email
++                Toast.makeText(this, "Account created with $email", Toast.LENGTH_SHORT).show()
++
++                //open profile
++                startActivity(Intent(this, ProfileActivity::class.java))
++                finish()
++
++
++            }
++            .addOnFailureListener {e->
++                //sign up failed
++                progressDialog.dismiss()
++                Toast.makeText(this, "SignUp Failed due to ${e.message}", Toast.LENGTH_SHORT).show()
++
++            }
++    }
++
++    override fun onSupportNavigateUp(): Boolean {
++        onBackPressed()//go back to previous activity, when back button of actionbar clicked
++        return super.onSupportNavigateUp()
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/apizee/webrtc/apiRTC/LoginActivity.kt
+===================================================================
+--- app/src/main/java/com/apizee/webrtc/apiRTC/LoginActivity.kt	(date 1626424335210)
++++ app/src/main/java/com/apizee/webrtc/apiRTC/LoginActivity.kt	(date 1626424335210)
+@@ -0,0 +1,121 @@
++package com.apizee.webrtc.apiRTC
++
++import android.app.ProgressDialog
++import android.content.Intent
++import androidx.appcompat.app.AppCompatActivity
++import android.os.Bundle
++import android.os.PatternMatcher
++import android.text.TextUtils
++import android.util.Patterns
++import android.widget.Toast
++import androidx.appcompat.app.ActionBar
++import com.apizee.webrtc.apiRTC.databinding.ActivityLoginBinding
++import com.google.firebase.auth.FirebaseAuth
++
++class LoginActivity : AppCompatActivity() {
++    //ViewBinding
++    private lateinit var binding:ActivityLoginBinding
++
++    //ActionBar
++    private lateinit var actionBar: ActionBar
++
++    //ProgressDialog
++    private lateinit var progressDialog:ProgressDialog
++    //FirebaseAuth
++    private lateinit var firebaseAuth: FirebaseAuth
++    private var email = ""
++    private var password = ""
++
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        binding = ActivityLoginBinding.inflate(layoutInflater)
++        setContentView(binding.root)
++
++        //configure actionbar
++        actionBar = supportActionBar!!
++        actionBar.title = "Login"
++
++        //configure progress dialog
++        progressDialog = ProgressDialog(this)
++        progressDialog.setTitle("Please wait")
++        progressDialog.setMessage("Logging in ...")
++        progressDialog.setCanceledOnTouchOutside(false)
++
++        //init firebaseAuth
++        firebaseAuth = FirebaseAuth.getInstance()
++        checkUser()
++
++        //handle click, open SignUpActivity
++        binding.noAccountTv.setOnClickListener {
++           startActivity(Intent(this, SignUpActivity::class.java))
++        }
++
++        //handle click, begin login
++        binding.loginBtn.setOnClickListener {
++            //before logging in, validate data
++            validateData()
++
++        }
++    }
++
++    private fun validateData() {
++        //get data
++        email = binding.emailEt.text.toString().trim()
++        password = binding.passwordEt.text.toString().trim()
++
++        //validate data
++        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
++            //invalid email format
++            binding.emailEt.setError("Invalid email format")
++        }
++        else if (TextUtils.isEmpty(password)){
++            //no password entered
++            binding.passwordEt.error = "Please enter password"
++        }
++        else{
++            //data is validated, begin login
++            firebaseLogin()
++        }
++
++    }
++
++    private fun firebaseLogin() {
++        //show progress
++        progressDialog.show()
++        firebaseAuth.signInWithEmailAndPassword(email, password)
++            .addOnSuccessListener {
++                //login success
++                progressDialog.dismiss()
++                //get user info
++                val firebaseUser = firebaseAuth.currentUser
++                val email = firebaseUser!!.email
++                Toast.makeText(this, "LoggedIn as $email", Toast.LENGTH_SHORT ).show()
++
++                //open profile
++                startActivity(Intent(this, ProfileActivity::class.java))
++                finish()
++
++
++            }
++            .addOnFailureListener { e->
++                //login failed
++                progressDialog.dismiss()
++                Toast.makeText(this, "Login failed due to ${e.message}", Toast.LENGTH_SHORT ).show()
++
++
++            }
++    }
++
++    private fun checkUser() {
++        //if user is already logged in go to profile activity
++        //get current user
++        val firebaseUser = firebaseAuth.currentUser
++        if (firebaseUser != null){
++            //user is already logged in
++            startActivity(Intent(this, ProfileActivity::class.java))
++            finish()
++        }
++
++    }
++}
+\ No newline at end of file
